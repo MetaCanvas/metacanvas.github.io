@@ -1643,7 +1643,72 @@
 			</div>
 		</div>
 	</footer>
+
+
+
+<!-- Add the draggable divider script here -->
+<script>
+	document.querySelectorAll('.video-compare-container').forEach(container => {
+		const divider = container.querySelector('.video-compare-divider');
+		const edited = container.querySelector('.video-compare-edited');
+		let dragging = false;
+
+		function setPosition(x) {
+		const rect = container.getBoundingClientRect();
+		let relX = x - rect.left;
+		relX = Math.max(0, Math.min(relX, rect.width));
+		const percent = (relX / rect.width) * 100;
+		divider.style.left = percent + '%';
+		edited.style.clipPath = `inset(0 0 0 ${percent}%)`;
+		}
+
+		divider.addEventListener('mousedown', e => {
+		dragging = true;
+		setPosition(e.clientX);
+		document.body.style.userSelect = 'none';
+		});
+
+		window.addEventListener('mousemove', e => {
+		if (dragging) setPosition(e.clientX);
+		});
+
+		window.addEventListener('mouseup', () => {
+		dragging = false;
+		document.body.style.userSelect = '';
+		});
+
+		// Touch support for mobile/tablet
+		divider.addEventListener('touchstart', e => {
+		dragging = true;
+		setPosition(e.touches[0].clientX);
+		document.body.style.userSelect = 'none';
+		});
+
+		window.addEventListener('touchmove', e => {
+		if (dragging) setPosition(e.touches[0].clientX);
+		});
+
+		window.addEventListener('touchend', () => {
+		dragging = false;
+		document.body.style.userSelect = '';
+		});
+	});
+</script>
+<!-- Existing scripts and styles -->
+<style>
+	code {
+		display: block;
+	}
+</style>
+<script>
+		var code = document.querySelector('pre code');
+		code.innerHTML = code.textContent.replace(/(\w)/, '<span>$1');
+		var left = code.querySelector('span').getClientRects()[0].left;
+		code.style.marginLeft = (-left + code.getClientRects()[0].left) + 'px';  
+</script>
 	
+
+
 </body>
 <style>
 	code {

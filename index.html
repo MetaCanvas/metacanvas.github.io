@@ -1649,51 +1649,38 @@
 <!-- Add the draggable divider script here -->
 <script>
 	document.querySelectorAll('.video-compare-container').forEach(container => {
-		const divider = container.querySelector('.video-compare-divider');
-		const edited = container.querySelector('.video-compare-edited');
-		let dragging = false;
-
-		function setPosition(x) {
+	  const divider = container.querySelector('.video-compare-divider');
+	  const edited = container.querySelector('.video-compare-edited');
+	
+	  function setPosition(x) {
 		const rect = container.getBoundingClientRect();
 		let relX = x - rect.left;
 		relX = Math.max(0, Math.min(relX, rect.width));
 		const percent = (relX / rect.width) * 100;
 		divider.style.left = percent + '%';
 		edited.style.clipPath = `inset(0 0 0 ${percent}%)`;
-		}
-
-		divider.addEventListener('mousedown', e => {
-		dragging = true;
+	  }
+	
+	  container.addEventListener('mousemove', e => {
 		setPosition(e.clientX);
-		document.body.style.userSelect = 'none';
-		});
-
-		window.addEventListener('mousemove', e => {
-		if (dragging) setPosition(e.clientX);
-		});
-
-		window.addEventListener('mouseup', () => {
-		dragging = false;
-		document.body.style.userSelect = '';
-		});
-
-		// Touch support for mobile/tablet
-		divider.addEventListener('touchstart', e => {
-		dragging = true;
-		setPosition(e.touches[0].clientX);
-		document.body.style.userSelect = 'none';
-		});
-
-		window.addEventListener('touchmove', e => {
-		if (dragging) setPosition(e.touches[0].clientX);
-		});
-
-		window.addEventListener('touchend', () => {
-		dragging = false;
-		document.body.style.userSelect = '';
-		});
+	  });
+	
+	  // Optional: Reset divider to center when mouse leaves
+	  container.addEventListener('mouseleave', () => {
+		divider.style.left = '50%';
+		edited.style.clipPath = 'inset(0 0 0 50%)';
+	  });
+	
+	  // Touch support for mobile/tablet
+	  container.addEventListener('touchmove', e => {
+		if (e.touches.length > 0) setPosition(e.touches[0].clientX);
+	  });
+	  container.addEventListener('touchend', () => {
+		divider.style.left = '50%';
+		edited.style.clipPath = 'inset(0 0 0 50%)';
+	  });
 	});
-</script>
+	</script>
 <!-- Existing scripts and styles -->
 <style>
 	code {

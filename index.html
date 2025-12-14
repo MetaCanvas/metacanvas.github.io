@@ -1,531 +1,1126 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <meta charset="utf-8">
-  <meta name="description"
-        content="DiagrammerGPT: Generating Open-Domain, Open-Platform Diagrams via LLM Planning">
-  <meta name="keywords" content="diagram,diagram generation,gpt,diagrammer,diagram gpt,diagrammer gpt,diagrammergpt">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>DiagrammerGPT (COLM 2024)</title>
+	<meta charset="utf-8">
+	<meta name="description" content="Exploring MLLM-Diffusion Information Transfer with MetaCanvas">
+	<meta name="keywords" 
+		content="image generation,video generation,unified models,MLLM,diffusion,genai,transfer">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Ctrl-Adapter</title>
 
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script> -->
-  <script>
-    window.dataLayer = window.dataLayer || [];
+	<script>
+		window.dataLayer = window.dataLayer || [];
 
-    function gtag() {
-      dataLayer.push(arguments);
-    }
+		function gtag() {
+			dataLayer.push(arguments);
+		}
 
-    gtag('js', new Date());
+		gtag('js', new Date());
 
-    gtag('config', 'G-PYVRSFMDRL');
-  </script>
+		gtag('config', 'G-PYVRSFMDRL');
+	</script>
 
-  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
-        rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
 
-  <link rel="stylesheet" href="./static/css/bulma.min.css">
-  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
-  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
-  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
-  <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-  <link rel="stylesheet" href="./static/css/index.css">
-  <!-- <link rel="icon" href="./static/images/favicon.svg"> -->
+	<link rel="stylesheet" href="./static/css/bulma.min.css">
+	<link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+	<link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+	<link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+	<link rel="stylesheet" href="./static/css/index.css">
+	<!-- <link rel="icon" href="./static/images/favicon.svg"> -->
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script defer src="./static/js/fontawesome.all.min.js"></script>
-  <script src="./static/js/bulma-carousel.min.js"></script>
-  <script src="./static/js/bulma-slider.min.js"></script>
-  <script src="./static/js/index.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script defer src="./static/js/fontawesome.all.min.js"></script>
+	<script src="./static/js/bulma-carousel.min.js"></script>
+	<script src="./static/js/bulma-slider.min.js"></script>
+	<script src="./static/js/index.js"></script>
 </head>
+
 <body>
+	<section class="hero">
+		<div class="hero-body">
+			<div class="container is-max-desktop">
+				<div class="columns is-centered">
+					<div class="column has-text-centered">
+						<h1 class="title is-1 publication-title">
+							<!-- <span style="color: rgb(237, 178, 13);">C</span><span style="color: rgb(112, 48, 160);">T</span><span style="color: rgb(0, 176, 240);">R</span><span style="color: rgb(215, 49, 136);">L</span>-Adapter -->
+							Exploring MLLM-Diffusion Information Transfer with <span
+							style="color: rgb(112, 48, 160); font-size: 1em;">MetaCanvas</span>
+						</h1>
+						<div class="is-size-5 publication-authors">
+							<span class="author-block">
+							  <a href="https://hl-hanlin.github.io/" target="_blank">
+								Han Lin<sup>1,2,*</sup>
+							  </a>
+							</span>,&nbsp;
+						  
+							<span class="author-block">
+							  <a href="https://xichenpan.com/" target="_blank">
+								Xichen Pan<sup>1,3</sup>
+							  </a>
+							</span>,&nbsp;
+						  
+							<span class="author-block">
+							  <a href="https://ziqihuangg.github.io/" target="_blank">
+								Ziqi Huang<sup>1,4,*</sup>
+							  </a>
+							</span>,&nbsp;
+						  
+							<span class="author-block">
+							  <a href="https://sekunde.github.io/" target="_blank">
+								Ji Hou<sup>1</sup>
+							  </a>
+							</span>,&nbsp;
+						  
+							<span class="author-block">
+							  <a href="https://sites.google.com/view/jialiangwang/home" target="_blank">
+								Jialiang Wang<sup>1</sup>
+							  </a>
+							</span>,&nbsp;
+						  
+							<span class="author-block">
+							  <a href="https://wfchen-umich.github.io/wfchen.github.io/" target="_blank">
+								Weifeng Chen<sup>1,*</sup>
+							  </a>
+							</span>,&nbsp;
+						  
+							<span class="author-block">
+							  <a href="https://zechenghe.github.io/" target="_blank">
+								Zecheng He<sup>1,*</sup>
+							  </a>
+							</span>,&nbsp;
+						  
+							<span class="author-block">
+							  <a href="https://xujuefei.com/" target="_blank">
+								Felix Juefei-Xu<sup>1</sup>
+							  </a>
+							</span>,&nbsp;
+						  
+							<span class="author-block">
+							  <a href="https://scholar.google.com/citations?user=wyi0bX0AAAAJ&hl=en" target="_blank">
+								Junzhe Sun<sup>1</sup>
+							  </a>
+							</span>,&nbsp;
+						  
+							<span class="author-block">
+							  <a href="https://scholar.google.com/citations?user=Nb6ggPwAAAAJ&hl=en" target="_blank">
+								Zhipeng Fan<sup>1</sup>
+							  </a>
+							</span>,&nbsp;
+						  
+							<span class="author-block">
+							  <a href="https://www.alithabet.com/" target="_blank">
+								Ali Thabet<sup>1</sup>
+							  </a>
+							</span>,&nbsp;
+						  
+							<span class="author-block">
+							  <a href="https://www.cs.unc.edu/~mbansal/" target="_blank">
+								Mohit Bansal<sup>2</sup>
+							  </a>
+							</span>,&nbsp;
+						  
+							<span class="author-block">
+							  <a href="https://scholar.google.com/citations?user=5aaOtscAAAAJ&hl=en" target="_blank">
+								Chu Wang<sup>1</sup>
+							  </a>
+							</span>
+						</div>
+						  
 
-<section class="hero">
-  <div class="hero-body">
-    <div class="container is-max-desktop">
-      <div class="columns is-centered">
-        <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">DiagrammerGPT: Generating Open-Domain,<br>Open-Platform Diagrams via LLM Planning</h1>
-          <div class="is-size-5 publication-authors">
-            <span class="author-block">
-              <a href="https://aszala.com/">Abhay Zala</a>
-            </span>, &nbsp;  
-            <span class="author-block">
-              <a href="https://hl-hanlin.github.io/">Han Lin</a>
-            </span>, &nbsp;  
-              <span class="author-block">
-                <a href="https://j-min.io">Jaemin Cho</a>
-              </span>, &nbsp;
-              <span class="author-block">
-                <a href="https://www.cs.unc.edu/~mbansal/">Mohit Bansal</a>
-              </span>
-          </div>
+						<div class="is-size-5 publication-authors">
+							<span class="author-block"><sup>1</sup> Meta Superintelligence Labs</span>,&nbsp;
+							<span class="author-block"><sup>2</sup> UNC Chapel Hill</span>,&nbsp;
+							<span class="author-block"><sup>3</sup> New York University</span>,&nbsp;
+							<span class="author-block"><sup>4</sup> Nanyang Technological University</span>
+						</div>
+						<div class="is-size-6 publication-authors">
+							<span class="author-block"><sup>*</sup> Work done at Meta</span>
+						</div>
 
-          <div class="is-size-5 publication-authors">
-            <span class="author-block">UNC Chapel Hill</span>
-          </div>
+						<div class="column has-text-centered">
+							<div class="publication-links">
+								<!-- PDF Link. -->
+								<span class="link-block">
+									<a href="xxxxx" class="external-link button is-normal is-rounded is-dark">
+										<span class="icon">
+											<i class="fas fa-file-pdf"></i>
+										</span>
+										<span>Paper</span>
+									</a>
+								</span>
+								<!-- Code Link. -->
+								<span class="link-block">
+									<a href="xxxxx" class="external-link button is-normal is-rounded is-dark">
+										<span class="icon">
+											<i class="fab fa-github"></i>
+										</span>
+										<span>Code (under review)</span>
+									</a>
+								</span>
+							</div>
 
-          <div class="is-size-5 publication-authors">
-            <span class="author-block" style="font-weight: bold; font-size: 1.3em;">COLM 2024</span>
-          </div>
-
-          <div class="column has-text-centered">
-            <div class="publication-links">
-              <!-- PDF Link. -->
-              <span class="link-block">
-                <a href="https://arxiv.org/abs/2310.12128"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fas fa-file-pdf"></i>
-                  </span>
-                  <span>Paper</span>
-                </a>
-              </span>
-              <!-- Code Link. -->
-              <span class="link-block">
-                <a href="https://github.com/aszala/DiagrammerGPT"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fab fa-github"></i>
-                  </span>
-                  <span>Code</span>
-                  </a>
-              </span>
-              
-              <!-- Code Link. -->
-              <span class="link-block">
-                <a href="https://huggingface.co/datasets/abhayzala/AI2D-Caption"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <img style="max-width: 16px;" src="https://ctrl-adapter.github.io/static/hf_fa.ico" alt="Hugging Face">
-                  </span>
-                  <span>AI2D-Caption Dataset</span>
-                  </a>
-              </span>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<section class="hero teaser">
-  <!-- <div class="container is-max-desktop"> -->
-  <div class="container">
-    <div class="hero-body" style="display: flex; justify-content: center;">
-      <!-- <h2 class="title is-3" style="text-align: center;">Summary Video</h2> -->
-      <video id="teaser" autoplay controls muted loop width="80%">
-        <source src="./static/images/teaser_video.mp4" type="video/mp4">
-      </video>
-
-    </div>
-  </div>
-</section>
-
-
-<section class="section">
-  <div class="container is-max-desktop">
-    <!-- Abstract. -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Abstract</h2>
-        <div class="content has-text-justified">
-          <p>
-          Text-to-image (T2I) generation has seen significant
-          growth over the past few years. Despite this, there has been
-          little work on generating diagrams with T2I models. A diagram is a symbolic/schematic representation that explains
-          information using structurally rich and spatially complex
-          visualizations (e.g., a dense combination of related objects,
-          text labels, directional arrows, connection lines, etc.). Existing state-of-the-art T2I models often fail at diagram generation because they lack fine-grained object layout control
-          when many objects are densely connected via complex relations such as arrows/lines and also often fail to render comprehensible text labels.
-          </p>
-
-          <p>
-            To address this gap, we present <b>DiagrammerGPT</b>, a novel two-stage text-to-diagram generation framework that leverages the layout guidance capabilities of LLMs (e.g., GPT-4) to generate more accurate open-domain, open-platform diagrams. In the first stage, we use
-            LLMs to generate and iteratively refine <i>'diagram plans'</i> (in
-            a planner-auditor feedback loop) which describe all the entities (objects and text labels), their relationships (arrows
-            or lines), and their bounding box layouts. In the second
-            stage, we use a diagram generator, DiagramGLIGEN, and
-            a text label rendering module to generate diagrams following the diagram plans. To benchmark the text-to-diagram
-            generation task, we introduce AI2D-Caption, a densely annotated diagram dataset built on top of the AI2D dataset.
-            We show quantitatively and qualitatively that our DiagrammerGPT framework produces more accurate diagrams, outperforming existing T2I models. We also provide comprehensive analysis
-            including open-domain diagram generation, vector graphic diagram generation in different platforms, human-in-the-loop diagram plan editing, and multimodal planner/auditor LLMs (e.g., GPT-4Vision).
-          </p>
-          <p>
-            We hope that our work can inspire further research on the diagram generation capabilities of T2I models and LLMs.
-          </p>
-
-        </div>
-      </div>
-    </div>
-    <!--/ Abstract. -->
-
-    <!-- Paper video. -->
-    <!-- <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Video</h2>
-        <div class="publication-video">
-          <iframe src="https://www.youtube.com/embed/MrKrnHhk8IA?rel=0&amp;showinfo=0"
-                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-        </div>
-      </div>
-    </div> -->
-    <!--/ Paper video. -->
-  </div>
-</section>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 
 
-<section class="section">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Summary</h2>
+	<section class="section">
+		<div class="container is-max-desktop">
+			<!-- Abstract. -->
+			<div class="columns is-centered has-text-centered">
+				<div class="column is-four-fifths">
+					<h2 class="title is-3">Abstract</h2>
+					<div class="content has-text-justified">
+						<p>
+							Multimodal learning has rapidly advanced visual understanding, largely via multimodal large language models (MLLMs) that use powerful LLMs as cognitive cores. In visual generation, however, these powerful core models are typically reduced to global text encoders for diffusion models, leaving most of their reasoning and planning ability unused. This creates a gap: current multimodal LLMs can parse complex layouts, attributes, and knowledge-intensive scenes, yet struggle to generate images or videos with equally precise and structured control. We propose <b>MetaCanvas</b>, a lightweight framework that lets MLLMs reason and plan directly in spatial and spatiotemporal latent spaces and interface tightly with diffusion generators. We empirically implement MetaCanvas on three different diffusion backbones and evaluate it across six tasks, including text-to-image generation, text/image-to-video generation, image/video editing, and in-context video generation, each requiring precise layouts, robust attribute binding, and reasoning-intensive control. MetaCanvas consistently outperforms global-conditioning baselines, suggesting that treating MLLMs as latent-space planners is a promising direction for narrowing the gap between multimodal understanding and generation.
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 
-        <img src="./static/images/figure_1.png" alt="Teaser" width="80%">
-        <div class="content has-text-justified">
-          <b>Figure 1. An overview of DiagrammerGPT, our two-stage framework for open-domain, open-platform diagram generation.</b>
-          In the first diagram planning stage (Sec. 3.1), given a prompt, our LLM (GPT-4) generates a diagram plan,which consists of dense entities (objects and text labels),
-          fine-grained relationships (between the entities), and precise layouts (2D bounding boxes of entities). Then, the LLM iteratively refines
-          the diagram plan (i.e., updating the plan to better align with the input prompts). In the second diagram generation stage (Sec. 3.2), our
-          DiagramGLIGEN outputs the diagram given the diagram plan, then, we render the text labels on the diagram.
-        </div>
+	<section class="section">
+		<div class="container is-max-desktop">
+			<div class="columns is-centered has-text-centered">
+				<div class="column is-four-fifths">
 
-        <br><br>
+					<h2 class="title is-3">Method (see more details <a href="#methoddetails">below &darr;</a>)</h2>
+					<img src="./static/images/figure1.png" alt="MetaCanvas Main Method Figure" width="99%">
+					<br>
+					<div class="content has-text-justified">
+						<p>
+							<b>Figure 1: Overview of the MetaCanvas framework.</b>
+							MetaCanvas tokenizes the text and encodes it using the MLLM’s text embedder, while user-provided images and videos are encoded using both the MLLM’s visual encoder and the VAE encoder. 
+							The text embeddings produced by the MLLM are passed through a lightweight MLP connector and used as conditioning for the DiT. 
+							In addition, we append a set of learnable multidimensional canvas tokens to the MLLM input, which are processed using multimodal RoPE (<a href="https://arxiv.org/abs/2502.13923" target="_blank">Bai et al., 2025b</a>). 
+							The resulting canvas embeddings are then fused with the noisy latents through a lightweight transformer-based connector with two blocks. 
+							Connector details are illustrated below. 
+							<span style="color:green;">Green</span> tokens represent media context tokens, <span style="color:rgb(0, 176, 240);">blue</span> tokens represent text context tokens, and <span style="color:rgb(112, 48, 160);">purple</span> tokens represent the canvas tokens.
+						</p>
+					</div>
 
-        <h3 class="title is-4">Stage 1: Diagram Planning</h3>
-        <img src="./static/images/figure_2.png" alt="Teaser" width="80%">
-        <div class="content has-text-justified">
-          <b>Figure 2. Illustration of the first stage of DiagrammerGPT: diagram planning (Sec. 3.1).</b> We use a planner LLM (e.g., GPT-4) to create
-          the fine-grained layouts of diagrams, which we call diagram plans. We first generate an initial diagram from the input text prompt with an
-          LLM (left). Then we iteratively refine diagram plans in a feedback loop of the planner and auditor LLMs, where the planner and auditor
-          LLMs are based on the same LLM architecture with different preambles (right).
-        </div>
-        <div class="content has-text-justified">
-          <p>
-            We first generate diagram plans with a planner LLM (GPT-4) via in-context learning.
-            A <i>diagram plan</i> consists of three components: (1) entities - a dense list of objects (e.g., larva in
-            Fig. 2) and text labels (e.g., “egg” in Fig. 2); (2) relationships - complex relationships between entities (e.g., objectobject relationship “[obj 0] has an arrow to [obj 1]” or
-            object-text label relationship “[text label 0] labels [obj 0]”);
-            (3) layouts - 2D bounding boxes of the entities (e.g.,
-            “[obj 0]: [20, 30, 14, 14]” in Fig. 2). For object-object relationships, we utilize two types: line and arrow (a line
-            with explicit start and end entities), which are useful when
-            specifying object relationships in diagrams such as flow
-            charts or life cycles. For object-text label relationships, we
-            specify which object each label refers to. For layouts, we
-            use the [x, y, w, h] format for 2D bounding boxes, whose
-            coordinates are normalized and integer-quantized within
-            {0, 1, · · · 100}.
-          </p>
-          <p>
-            Then, we introduce an auditor LLM that checks for any mismatch between the current
-            diagram plan and the input prompt. It then provides feedback, enabling the planner LLM to refine the diagram plans.
-            Our auditor and planner LLMs form a feedback loop to iteratively refine the diagram plans.
-          </p>
-        </div>
-
-
-        <br><br>
-        <h3 class="title is-4">Stage 2: Diagram Generation</h3>
-        <img src="./static/images/figure_3.png" alt="Teaser" width="80%">
-        <div class="content has-text-justified">
-          <b>Figure 3. Illustration of the second stage of DiagrammerGPT: diagram generation (Sec. 3.2).</b> We first generate the objects following the
-          layouts in diagram plan with DiagramGLIGEN, our layout-guided diagram generation model. Then we use the Pillow Python package to
-          render comprehensible text labels.
-        </div>
-        <div class="content has-text-justified">
-          <p>
-            While existing text-to-image generation models demonstrate photorealistic image generation capabilities,
-            in the text-to-diagram generation task, conveying factual information from the text description is more crucial than producing
-            realistic objects. In our experiments, we observe that Stable Diffusion v1.4,
-            a recent strong text-to-image generation model, often omits important objects,
-            generates incorrect relationships between objects, and generates unreadable
-            text labels (see Sec. 5 and Fig. 5).
-            To tackle these issues, <b>we introduce DiagramGLIGEN</b>,
-            a layout-guided diagram generation model capable of leveraging the knowledge of text-to-image generation models
-            while adhering closely to the diagram plans.
-            We train DiagramGLIGEN on <b>our new AI2D-Caption dataset</b>
-            (see Sec. 4.1 for details), which contains annotations of
-            overall diagram captions and bounding-box descriptions
-            for 4.8K scientific diagrams extended from the AI2D
-            dataset.
-          </p>
-          <p>
-            In our diagram generation
-            pipeline, instead of relying on diffusion models for pixel-level generation of text labels, we explicitly render clear
-            text labels on the diagrams following diagram plan with the
-            Pillow Python package.
-          </p>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</section>
+				</div>
+			</div>
+		</div>
+	</section>
 
 
 
-<section class="section">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Quantitative Results</h2>
-
-        <br><br>
-
-        <h3 class="title is-4">Main Results</h3>
-        <img src="./static/images/table_1.png" alt="Teaser" width="80%">
-        <div class="content has-text-justified">
-          <b>Table 1. Comparison of DiagrammerGPT to existing text-to-image generation baseline models.</b>
-          On all metrics, DiagrammerGPT outperforms the baselines, indicating that our method is more effective for generating accurate diagrams.
-        </div>
-        <div class="content has-text-justified">
-          <p>
-            Table 1 left block shows the VPEval results.
-          For both Stable Diffusion v1.4 and VPGen baselines, fine-tuning improves the score for object skill (e.g., 70.1 → 75.4
-          for Stable Diffusion v1.4, and 64.1 → 69.1 for VPGen),
-          but does not help much or sometimes decreasing scores for
-          count (48.1 → 44.3 for Stable Diffusion v1.4, and 39.2 →
-          41.8 for VPGen). For relationships, it hurts Stable Diffusion v1.4 slightly (76.7 → 73.7) and helps VPGen (69.8 →
-          74.6 for). For text, both models achieve 0 scores before
-          and after fine-tuning. Our DiagrammerGPT outperforms
-          both zeroshot and fine-tuned baselines on both overall and
-          skill-specific VPEval scores, showcasing the strong layout
-          control, object relationship representation, and accurate text
-          rendering capability of our diagram generation framework.
-          </p>
-          <p>
-            Table 1 middle block
-            shows captioning scores (with LLaVA 1.5). Our DiagrammerGPT outperforms both the zeroshot and fine-tuned baselines indicating our generated diagrams have more relevant information to the input prompt than the baselines
-            (which is a critical aspect of diagrams). Our DiagrammerGPT significantly outperforms both fine-tuned VPGen
-            (31.7 vs. 4.2) and fine-tuned Stable Diffusion v1.4 (31.7 vs.
-            18.2) for CIDEr and also achieves a few higher points on
-            BERTScore.
-          </p>
-          <p>
-            Table 1 right block shows CLIPScore (with CLIP-ViT
-            L/14). Our DiagrammerGPT outperforms the zeroshot
-            and fine-tuned baselines indicating our generated diagrams
-            more closely reflect the input prompt (image-text similarity) and resemble the ground-truth diagrams (image-image
-            alignment). For CLIPScore<sup>Img-Txt</sup>, DiagrammerGPT has
-            slight improvement over fine-tuned Stable Diffusion v1.4
-            (32.9 vs. 30.1). For CLIPScore<sup>Img-Img</sup>, DiagrammerGPT has
-            a larger improvement over fine-tuned Stable Diffusion v1.4
-            (74.5 vs. 68.1).
-          </p>
-        </div>
 
 
-        <br><br>
-        <h3 class="title is-4">Human Evaluation</h3>
-        <img src="./static/images/table_2.png" alt="Teaser" width="50%">
-        <div class="content has-text-justified">
-          <b>Table 2. Human evaluation of pairwise preferences</b> between our
-          DiagrammerGPT and Stable Diffusion v1.4 regarding both image-text alignment and object relationships.
-        </div>
-        <div class="content has-text-justified">
-          <p>
-            As discussed in Sec. 4.4, we conduct a human preference study, comparing our DiagrammerGPT and
-            its closest/the strongest baseline, fine-tuned Stable Diffusion v1.4 in image-text alignment and object relationships.
-            As shown in Table 2, our DiagrammerGPT achieves a
-            higher preference than Stable Diffusion v1.4 in both image-text alignment (36% vs 20%) and object relationships (48%
-            vs 30%) criteria
-          </p>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</section>
+	<section class="section">
+		<div class="container is-max-desktop" style="max-width: 2500px !important;">
+			<div class="columns is-centered has-text-centered">
+				<div class="column is-four-fifths">
+					<h2 class="title is-3">Generated Examples</h2>
+					<p>Here we show examples for in-context video generation from reference images, and video editing tasks</p>
+					<br><br>
 
 
+					<div class="content is-centered has-text-centered"   style="max-width: 1200px;margin: auto;">
+						<h3 class="example-heading">In-Context Video Generation</h3>
+						<hr>
 
-<section class="section">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Qualitative Examples & Analysis</h2>
-        <br><br>
-        <h3 class="title is-4">Comparison with Baselines</h3>
-        <img src="./static/images/figure_5.png" alt="Teaser" width="80%">
-        <div class="content has-text-justified">
-          <b>Figure 5. Example diagram generation results</b> from baselines (fine-tuned Stable Diffusion v1.4 and AutomaTikZ) and our DiagrammerGPT
-          (both diagram plan and final diagram) on the AI2D-Caption test split. In the first example, our DiagrammerGPT correctly gets the object
-          count right and has clear text, whereas Stable Diffusion v1.4 overpopulates the entities orbiting around the sun. In the second example, our
-          DiagrammerGPT generates a quite accurate diagram plan (with all required elements) and a diagram that mostly reflects the plan, whereas
-          Stable Diffusion v1.4 fails to show a life cycle (i.e., missing the egg, pupa, and larva). As noted in Sec. 5.2, once a better backbone becomes
-          available, our DiagrammerGPT can produce better diagrams based on the diagram plans. AutomaTikZ struggles to generate the proper
-          layouts and objects for both examples.
-        </div>
-        <div class="content has-text-justified">
-          Fig. 5 shows example diagrams generated by the baselines (Stable Diffusion v1.4
-          and AutomaTikZ) and our DiagrammerGPT (both diagram
-          plan and final generation diagram) on the AI2D-Caption test
-          split. Our diagram plans strongly reflect the prompts and
-          the final diagrams are more aligned to the input prompts. In
-          Fig. 5 top example, our diagram correctly shows the earth in
-          four phases revolving around the sun and in the second example, our diagram plan correctly represents the life cycle
-          of a butterfly and the generated diagram captures the circular flow of the diagram plan as well most aspects of the life
-          cycle. Stable Diffusion v1.4 either over- or under-generates
-          objects in the image (e.g., too many earths in the first example and missing egg/larva/pupa stages in Fig. 5 bottom
-          example), and AutomaTikZ fails to generate proper layouts
-          and objects. Although our generated diagram plans are generally correct, however, sometimes DiagramGLIGEN can
-          fail to properly follow all aspects (e.g., the egg is misdrawn
-          and the larva/pupa are swapped in Fig. 5 bottom example).
-          As noted in Sec. 5.2, once a better backbone becomes available, our DiagramGLIGEN can produce better diagrams
-          following the diagram plans.
-        </div>
+						<div style="max-width: 1200px;margin: auto;display: flex;flex-wrap: nowrap;">
+							<div class="content example">
+								<table>
+									<thead>
+										<tr style="font-size: 1em;">
+											<th>Reference Image 1</th>
+											<th></th>
+											<th>Reference Image 2 (optional)</th>
+											<th></th>
+											<th>Input Prompt</th>
+											<th></th>
+											<th>Generated Video<br></th>
+										</tr>
+									</thead>
+									<tbody>
+										
+										<!-- Figure25 ref1 -->
+										<tr>
+											<td>
+												<div style="display: flex;width: 150px;margin:auto; ">
+													<img width="150px" height="150px"
+														src="./static/videos/Figure25/Reference_Images/video1_ref_image.jpg">
+												</div>
+											</td>
 
-        <br><br>
+											<td></td>
+											
+											<td></td>
 
-        <h3 class="title is-4">Diagram Plan Refinement</h3>
-        <img src="./static/images/figure_6.png" alt="Teaser" width="80%">
-        <div class="content has-text-justified">
-          <b>Figure 6. Examples from our diagram refinement step.</b> Our auditor LLM can help reorganize the connections between the components to
-          be more clear in the first example and prevent overlaps of objects in the second example
-        </div>
-        <div class="content has-text-justified">
-          In Fig. 6, we show how our
-          diagram refinement step (see Sec. 3.1) improves the diagram plans. In the top example, the switch is not connected
-          to the battery, thus does not affect the circuit. After refinement, the connections are corrected so the switch is now
-          also connected to the circuit and the layouts are adjusted
-          to have a more straightforward flow. In the bottom example, the moon phase of 'New Moon' is too low and overlaps
-          with the 'Earth' object. After refinement, there is no more
-          overlap.
-        </div>
+											<td>
+												<img style="position: relative;top:50%;transform: translateY(-50%);"
+													width="50px" src="./static/images/plus.png">
+											</td>
 
-        <br><br>
+											<td style="text-align: left;">
+												<p style="font-size: 1.1em;">
+													Place the anime character with long, flowing light blue hair <span style="color: rgb(112, 48, 160); font-weight: bold;">in a serene garden at sunset, powerfully lifting weights</span>. Sweat glistens on her determined face as she strains against the heavy barbell.
+												</p>
+											</td>
 
-        <h3 class="title is-4">Open-Domain Diagram Generation</h3>
-        <img src="./static/images/figure_7.png" alt="Teaser" width="80%">
-        <div class="content has-text-justified">
-          <b>Figure 7. Examples of open-domain generation</b> demonstrate that our DiagrammerGPT can create diagrams that adhere to the input text
-          prompts. Although DALL-E 3 yields images with superior visual quality, it tends to generate diagrams with redundant and crowded objects
-          and also struggles to follow the prompt accurately (e.g., in the second example, it is not clear where the locations of layers such as the
-          'inner core', 'outer core', and 'mantle' are. In the third example, it generates too many objects that are not in rows).
-        </div>
-        <div class="content has-text-justified">
-          In Fig. 7, we demonstrate that our planner LLM can extend its capabilities to domains beyond the three specific
-          areas (astronomy, biology, and engineering) for which we
-          have in-context examples. As shown in the figure, our planner LLM generates fairly accurate layouts. While our DiagramGLIGEN struggles in some cases, it is able to strongly
-          adhere to the diagram plan. As mentioned in Sec. 5.2,
-          once a stronger layout-guided image generation model than
-          GLIGEN with Stable Diffusion v1.4 backbone is available,
-          our DiagrammerGPT can produce higher quality results.
-          In Fig. 7, we also compare the recently released DALL-E
-          3 model. We find that DALL-E 3 generally produces
-          images with good aesthetic style but tends to generate diagrams with redundant and crowded objects (e.g., excessive
-          unnecessary text descriptions in the rock and Earth examples, and an overabundance of plants in the third example).
-          It also continues to struggle with creating accurate diagrams
-          that adhere to a prompt (e.g., generating incorrect layers in
-          the earth example and generating three columns of plants
-          instead of three rows in the plant example). The DALL-E 3
-          system card also notes that DALL-E 3 tends to generate
-          scientifically inaccurate information in diagrams
-        </div>
+											<td>
+												<img style="position: relative;top:50%;transform: translateY(-50%);"
+													width="50px" src="./static/images/arrow_icon.jpg">
+											</td>
+
+											<td>
+												<div style="display: flex;width: 225px;margin:auto; margin: auto">
+													<video style="position: relative;" width="225px" height="125px"
+														src="./static/videos/Figure25/MetaCanvas/video1_output.mp4" autoplay muted loop playsinline>
+												</div>
+											</td>
+										</tr>
 
 
-        <br><br>
+										<!-- Figure25 ref2 -->
+										<tr>
+											<td>
+												<div style="display: flex;width: 150px;margin:auto; ">
+													<img width="150px" height="225px"
+														src="./static/videos/Figure25/Reference_Images/video2_ref_image.jpg">
+												</div>
+											</td>
 
-        <h3 class="title is-4">Vector Graphic Diagram Generation in Different Platforms</h3>
-        <img src="./static/images/figure_8.png" alt="Teaser" width="80%">
-        <div class="content has-text-justified">
-          <b>Figure 8. Examples of vector graphic diagrams generated with our diagram plans</b>
-          and exported into Microsoft PowerPoint and Inkscape (with icons from Noun Project Icons API).
-        </div>
-        <div class="content has-text-justified">
-          Although our primary focus is on a pixel-level diagram generation pipeline with DiagramGLIGEN, our diagram plans can also facilitate the creation of vector graphic
-          diagrams. These diagrams afford users significant flexibility for further edits and personalization of their diagram
-          layouts, such as changing colors, fonts, and object positions, or altering the diagram size without degrading quality. To achieve this, we render
-          our diagram plans in PowerPoint via VBA language
-          and in
-          Inkscape via a Python scripting extension (see Fig. 8).
-          While we experiment with these two platforms, <b>our diagram plans can
-          be flexibly exported to any platform that supports script integration</b>. In both platforms, we integrate features for text
-          and arrows/lines to delineate object text labels and relationships respectively. We represent objects using icons, which
-          are retrieved via the Noun Project Icons API based on corresponding text descriptions.
-        </div>
+											<td></td>
+											
+											<td></td>
 
+											<td>
+												<img style="position: relative;top:50%;transform: translateY(-50%);"
+													width="50px" src="./static/images/plus.png">
+											</td>
 
-        <br><br>
+											<td style="text-align: left;">
+												<p style="font-size: 1.1em;">
+													Show the man in a suit <span style="color: rgb(112, 48, 160); font-weight: bold;">embracing his partner</span> in a lavender field, both smiling and holding bouquets.
+												</p>
+											</td>
 
-        
-        <h3 class="title is-4">Human-in-the-Loop Diagram Plan Editing</h3>
-        <img src="./static/images/figure_9.png" alt="Teaser" width="80%">
-        <div class="content has-text-justified">
-          <b>Figure 9. An illustration of human-in-the-loop diagram plan editing.</b> Our DiagrammerGPT first provides an initial diagram plan with the
-          corresponding generated diagram, users can then review the generated layouts/diagrams and make adjustments based on their needs. With
-          the user-refined diagram plan, our DiagramGLIGEN creates diagrams that better suit the users' requirements
-        </div>
-        <div class="content has-text-justified">
-          With the diagram plans being rendered in vector graphic platforms, as
-          mentioned above, our DiagrammerGPT can provide an editable diagram plan, allowing for human-in-the-loop editing. As illustrated in Fig. 9,
-          our framework first generates an initial diagram plan along with the rendered image.
-          Users can then review the generated layouts/diagrams and
-          make adjustments based on their needs/wants (e.g., move the objects, add/remove objects, adjust object sizes, etc.).
-          With the human-refined diagram plan, users can either keep
-          it in vector format and use icons (as mentioned in the previous paragraph) or give it back to DiagramGLIGEN and
-          then create pixel-level diagrams, resulting in diagrams/layouts that are better suited to end-users requirements.
-        </div>
+											<td>
+												<img style="position: relative;top:50%;transform: translateY(-50%);"
+													width="50px" src="./static/images/arrow_icon.jpg">
+											</td>
+
+											<td>
+												<div style="display: flex;width: 225px;margin:auto; margin: auto">
+													<video style="position: relative;" width="225px" height="125px"
+														src="./static/videos/Figure25/MetaCanvas/video2_output.mp4" autoplay muted loop playsinline>
+												</div>
+											</td>
+										</tr>
 
 
-        <br><br>
 
-      </div>
-    </div>
-  </div>
-</section>
+										<!-- Figure25 ref3 -->
+										<tr>
+											<td>
+												<div style="display: flex;width: 200px;margin:auto; ">
+													<img width="200px" height="125px"
+														src="./static/videos/Figure25/Reference_Images/video3_ref_image.jpg">
+												</div>
+											</td>
+
+											<td></td>
+											
+											<td></td>
+
+											<td>
+												<img style="position: relative;top:50%;transform: translateY(-50%);"
+													width="50px" src="./static/images/plus.png">
+											</td>
+
+											<td style="text-align: left;">
+												<p style="font-size: 1.1em;">
+													Position a slice of tiramisu elegantly on a marble altar in the center of the grand cathedral, <span style="color: rgb(112, 48, 160); font-weight: bold;">surrounded by flickering candlelight</span> that enhances its rich colors.
+												</p>
+											</td>
+
+											<td>
+												<img style="position: relative;top:50%;transform: translateY(-50%);"
+													width="50px" src="./static/images/arrow_icon.jpg">
+											</td>
+
+											<td>
+												<div style="display: flex;width: 225px;margin:auto; margin: auto">
+													<video style="position: relative;" width="225px" height="125px"
+														src="./static/videos/Figure25/MetaCanvas/video3_output.mp4" autoplay muted loop playsinline>
+												</div>
+											</td>
+										</tr>
 
 
-<section class="section">
-  <div class="container is-max-desktop content">
-    <h3 class="title">Limitations</h3>
-    <p style="font-size: 0.8em;">
-      Our DiagrammerGPT framework is for research purposes and is not intended for commercial use (and therefore should be used with caution in real-world applications, with human supervision,
-      e.g., as described in Sec. 5.4 human-in-the-loop diagram plan editing).
-    </p>
-  </div>
-</section>
 
-<section class="section" id="BibTeX">
-  <div class="container is-max-desktop content">
-    <h2 class="title">BibTeX</h2>
-    <pre><code>
-      @inproceedings{Zala2023DiagrammerGPT,
-        author = {Abhay Zala and Han Lin and Jaemin Cho and Mohit Bansal},
-        title = {DiagrammerGPT: Generating Open-Domain, Open-Platform Diagrams via LLM Planning},
-        year = {2024},
-        booktitle = {COLM},
-}
-    </code></pre>
-  </div>
-</section>
+										<!-- Figure25 ref4 -->
+										<tr>
+											<td>
+												<div style="display: flex;width: 200px;margin:auto; ">
+													<img width="200px" height="125px"
+														src="./static/videos/Figure25/Reference_Images/video4_ref_image.jpg">
+												</div>
+											</td>
+
+											<td></td>
+											
+											<td></td>
+
+											<td>
+												<img style="position: relative;top:50%;transform: translateY(-50%);"
+													width="50px" src="./static/images/plus.png">
+											</td>
+
+											<td style="text-align: left;">
+												<p style="font-size: 1.1em;">
+													Perch a dark blue starling with white spots <span style="color: rgb(112, 48, 160); font-weight: bold;">on the armrest of a vintage-style armchair</span>, its yellow beak glinting in the warm light filtering through the window.
+												</p>
+											</td>
+
+											<td>
+												<img style="position: relative;top:50%;transform: translateY(-50%);"
+													width="50px" src="./static/images/arrow_icon.jpg">
+											</td>
+
+											<td>
+												<div style="display: flex;width: 225px;margin:auto; margin: auto">
+													<video style="position: relative;" width="225px" height="125px"
+														src="./static/videos/Figure25/MetaCanvas/video4_output.mp4" autoplay muted loop playsinline>
+												</div>
+											</td>
+										</tr>
 
 
-<footer class="footer">
-  <div class="container">
-    <!-- <div class="content has-text-centered">
-      <a class="icon-link"
-         href="./static/videos/nerfies_paper.pdf">
-        <i class="fas fa-file-pdf"></i>
-      </a>
-      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
-        <i class="fab fa-github"></i>
-      </a>
-    </div> -->
-    <div class="columns is-centered">
-      <div class="column is-8">
-        <div class="content">
-          The webpage was adapted from <a href="https://github.com/nerfies/nerfies.github.io">nerfies</a>.
-        </div>
-      </div>
-    </div>
-  </div>
-</footer>
 
+
+										<!-- Figure26 ref1 -->
+										<tr>
+											<td>
+												<div style="display: flex;width: 200px;margin:auto; ">
+													<img width="200px" height="125px"
+														src="./static/videos/Figure26/Reference_Images/video1_ref_image1.jpg">
+												</div>
+											</td>
+
+											<td>
+												<img style="position: relative;top:50%;transform: translateY(-50%);"
+													width="50px" src="./static/images/plus.png">
+											</td>
+											
+											<td>
+												<div style="display: flex;width: 200px;margin:auto; ">
+													<img width="200px" height="125px"
+														src="./static/videos/Figure26/Reference_Images/video1_ref_image2.jpg">
+												</div>
+											</td>
+
+											<td>
+												<img style="position: relative;top:50%;transform: translateY(-50%);"
+													width="50px" src="./static/images/plus.png">
+											</td>
+
+											<td style="text-align: left;">
+												<p style="font-size: 1.1em;">
+													Set a vibrant peacock perched gracefully <span style="color: rgb(112, 48, 160); font-weight: bold;">on a rustic wooden table</span> in an outdoor café setting, <span style="color: rgb(112, 48, 160); font-weight: bold;">surrounded by potted plants and a charming stone wall</span>, while <span style="color: rgb(112, 48, 160); font-weight: bold;">placing a sleek silver car parked nearby</span>, reflecting the warm sunlight filtering through the glass doors.
+												</p>
+											</td>
+
+											<td>
+												<img style="position: relative;top:50%;transform: translateY(-50%);"
+													width="50px" src="./static/images/arrow_icon.jpg">
+											</td>
+
+											<td>
+												<div style="display: flex;width: 225px;margin:auto; margin: auto">
+													<video style="position: relative;" width="225px" height="125px"
+														src="./static/videos/Figure26/MetaCanvas/video1_output.mp4" autoplay muted loop playsinline>
+												</div>
+											</td>
+										</tr>
+
+
+
+
+										<!-- Figure26 ref3 -->
+										<tr>
+											<td>
+												<div style="display: flex;width: 200px;margin:auto; ">
+													<img width="200px" height="125px"
+														src="./static/videos/Figure26/Reference_Images/video3_ref_image1.jpg">
+												</div>
+											</td>
+
+											<td>
+												<img style="position: relative;top:50%;transform: translateY(-50%);"
+													width="50px" src="./static/images/plus.png">
+											</td>
+											
+											<td>
+												<div style="display: flex;width: 150px;margin:auto; ">
+													<img width="150px" height="225px"
+														src="./static/videos/Figure26/Reference_Images/video3_ref_image2.jpg">
+												</div>
+											</td>
+
+											<td>
+												<img style="position: relative;top:50%;transform: translateY(-50%);"
+													width="50px" src="./static/images/plus.png">
+											</td>
+
+											<td style="text-align: left;">
+												<p style="font-size: 1.1em;">
+													She reaches out to <span style="color: rgb(112, 48, 160); font-weight: bold;">touch the deer's head</span>, with the deer looking calmly at her in a serene forest setting.
+												</p>
+											</td>
+
+											<td>
+												<img style="position: relative;top:50%;transform: translateY(-50%);"
+													width="50px" src="./static/images/arrow_icon.jpg">
+											</td>
+
+											<td>
+												<div style="display: flex;width: 225px;margin:auto; margin: auto">
+													<video style="position: relative;" width="225px" height="125px"
+														src="./static/videos/Figure26/MetaCanvas/video3_output.mp4" autoplay muted loop playsinline>
+												</div>
+											</td>
+										</tr>
+
+
+
+
+
+
+										<!-- Figure26 ref4 -->
+										<tr>
+											<td>
+												<div style="display: flex;width: 150px;margin:auto; ">
+													<img width="150px" height="225px"
+														src="./static/videos/Figure26/Reference_Images/video4_ref_image1.jpg">
+												</div>
+											</td>
+
+											<td>
+												<img style="position: relative;top:50%;transform: translateY(-50%);"
+													width="50px" src="./static/images/plus.png">
+											</td>
+											
+											<td>
+												<div style="display: flex;width: 135px;margin:auto; ">
+													<img width="135px" height="225px"
+														src="./static/videos/Figure26/Reference_Images/video4_ref_image2.jpg">
+												</div>
+											</td>
+
+											<td>
+												<img style="position: relative;top:50%;transform: translateY(-50%);"
+													width="50px" src="./static/images/plus.png">
+											</td>
+
+											<td style="text-align: left;">
+												<p style="font-size: 1.1em;">
+													Please make the lady from the first image crouch slightly <span style="color: rgb(112, 48, 160); font-weight: bold;">in a warmly lit living room</span> as she <span style="color: rgb(112, 48, 160); font-weight: bold;">playfully pats</span> the Shiba Inu from photo 2. Her hand is mid-motion, just above the dog’s head. The dog stands on a patterned rug, glancing up with an excited yet puzzled look. A floor lamp casts soft shadows in the cozy, wood- paneled room.
+												</p>
+											</td>
+
+											<td>
+												<img style="position: relative;top:50%;transform: translateY(-50%);"
+													width="50px" src="./static/images/arrow_icon.jpg">
+											</td>
+
+											<td>
+												<div style="display: flex;width: 225px;margin:auto; margin: auto">
+													<video style="position: relative;" width="225px" height="125px"
+														src="./static/videos/Figure26/MetaCanvas/video4_output.mp4" autoplay muted loop playsinline>
+												</div>
+											</td>
+										</tr>
+
+
+
+
+										<!-- Figure27 ref1 -->
+										<tr>
+											<td>
+												<div style="display: flex;width: 200px;margin:auto; ">
+													<img width="200px" height="125px"
+														src="./static/videos/Figure27/Reference_Images/video1_ref_image1.jpg">
+												</div>
+											</td>
+
+											<td>
+												<img style="position: relative;top:50%;transform: translateY(-50%);"
+													width="50px" src="./static/images/plus.png">
+											</td>
+											
+											<td>
+												<div style="display: flex;width: 200px;margin:auto; ">
+													<img width="200px" height="125px"
+														src="./static/videos/Figure27/Reference_Images/video1_ref_image2.jpg">
+												</div>
+											</td>
+
+											<td>
+												<img style="position: relative;top:50%;transform: translateY(-50%);"
+													width="50px" src="./static/images/plus.png">
+											</td>
+
+											<td style="text-align: left;">
+												<p style="font-size: 1.1em;">
+													Place the red panda on the edge of the bed, curling up against the decorative pillows as it <span style="color: rgb(112, 48, 160); font-weight: bold;">gazes out the window</span>, soaking in the warm sunlight.
+												</p>
+											</td>
+
+											<td>
+												<img style="position: relative;top:50%;transform: translateY(-50%);"
+													width="50px" src="./static/images/arrow_icon.jpg">
+											</td>
+
+											<td>
+												<div style="display: flex;width: 225px;margin:auto; margin: auto">
+													<video style="position: relative;" width="225px" height="150px"
+														src="./static/videos/Figure27/MetaCanvas/video1_output.mp4" autoplay muted loop playsinline>
+												</div>
+											</td>
+										</tr>
+
+
+
+										<!-- Figure27 ref2 -->
+										<tr>
+											<td>
+												<div style="display: flex;width: 200px;margin:auto; ">
+													<img width="200px" height="125px"
+														src="./static/videos/Figure27/Reference_Images/video2_ref_image1.jpg">
+												</div>
+											</td>
+
+											<td>
+												<img style="position: relative;top:50%;transform: translateY(-50%);"
+													width="50px" src="./static/images/plus.png">
+											</td>
+											
+											<td>
+												<div style="display: flex;width: 125px;margin:auto; ">
+													<img width="125px" height="200px"
+														src="./static/videos/Figure27/Reference_Images/video2_ref_image2.jpg">
+												</div>
+											</td>
+
+											<td>
+												<img style="position: relative;top:50%;transform: translateY(-50%);"
+													width="50px" src="./static/images/plus.png">
+											</td>
+
+											<td style="text-align: left;">
+												<p style="font-size: 1.1em;">
+													Place the fluffy dog <span style="color: rgb(112, 48, 160); font-weight: bold;">on the wet pavement in front of the modern museum</span>.
+												</p>
+											</td>
+
+											<td>
+												<img style="position: relative;top:50%;transform: translateY(-50%);"
+													width="50px" src="./static/images/arrow_icon.jpg">
+											</td>
+
+											<td>
+												<div style="display: flex;width: 225px;margin:auto; margin: auto">
+													<video style="position: relative;" width="225px" height="125px"
+														src="./static/videos/Figure27/MetaCanvas/video2_output.mp4" autoplay muted loop playsinline>
+												</div>
+											</td>
+										</tr>
+								
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<br><br>
+						<br><br>
+					</div>
+					<br><br>
+
+
+					<style>
+						.video-compare-container {
+						  position: relative;
+						  width: 640px;
+						  height: 360px;
+						  margin: 20px auto;
+						  user-select: none;
+						  background: #000;
+						  overflow: hidden;
+						}
+						.video-compare-img {
+						  position: absolute;
+						  top: 0; left: 0;
+						  width: 100%; height: 100%;
+						  object-fit: cover;
+						  pointer-events: none;
+						}
+						.video-compare-edited {
+						  clip-path: inset(0 0 0 50%);
+						  transition: clip-path 0.05s;
+						}
+						.video-compare-divider {
+						  position: absolute;
+						  top: 0; bottom: 0;
+						  left: 50%;
+						  width: 4px;
+						  background: #fff;
+						  cursor: ew-resize;
+						  z-index: 2;
+						  border-radius: 2px;
+						  box-shadow: 0 0 4px #0008;
+						  transition: background 0.2s;
+						  pointer-events: auto;
+						}
+						.video-compare-divider:hover {
+						  background: #0af;
+						}
+					</style>
+						
+					<div class="video-compare-container" id="videoCompare">
+						<video class="video-compare-img" id="imgSource" src="./static/videos/video1_input.mp4" autoplay muted loop></video>
+						<video class="video-compare-img video-compare-edited" id="imgEdited" src="./static/videos/video1_output.mp4" autoplay muted loop></video>
+						<div class="video-compare-divider" id="videoDivider"></div>
+					</div>
+						
+					<script>
+						window.addEventListener('DOMContentLoaded', () => {
+						  const container = document.getElementById('videoCompare');
+						  const divider = document.getElementById('videoDivider');
+						  const edited = document.getElementById('imgEdited');
+					  
+						  let dragging = false;
+					  
+						  function setDivider(x) {
+							const rect = container.getBoundingClientRect();
+							let relX = Math.max(0, Math.min(x - rect.left, rect.width));
+							let percent = relX / rect.width * 100;
+							divider.style.left = percent + '%';
+							edited.style.clipPath = `inset(0 0 0 ${percent}%)`;
+						  }
+					  
+						  divider.addEventListener('mousedown', e => {
+							dragging = true;
+							document.body.style.cursor = 'ew-resize';
+							setDivider(e.clientX);
+							e.preventDefault();
+						  });
+					  
+						  window.addEventListener('mousemove', e => {
+							if (!dragging) return;
+							setDivider(e.clientX);
+						  });
+					  
+						  window.addEventListener('mouseup', e => {
+							dragging = false;
+							document.body.style.cursor = '';
+						  });
+					  
+						  divider.addEventListener('touchstart', e => {
+							dragging = true;
+							document.body.style.cursor = 'ew-resize';
+							setDivider(e.touches[0].clientX);
+							e.preventDefault();
+						  });
+					  
+						  window.addEventListener('touchmove', e => {
+							if (!dragging) return;
+							setDivider(e.touches[0].clientX);
+						  });
+					  
+						  window.addEventListener('touchend', e => {
+							dragging = false;
+							document.body.style.cursor = '';
+						  });
+					  
+						  // Initialize divider position
+						  setDivider(container.getBoundingClientRect().width / 2 + container.getBoundingClientRect().left);
+						});
+					</script>
+
+				
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+
+
+
+
+
+	<a id="methoddetails"></a>
+	<section class="section">
+		<div class="container is-max-desktop">
+			<div class="columns is-centered has-text-centered">
+				<div class="column is-four-fifths">
+					<h2 class="title is-3">Method Details</h2>
+					<hr>
+					<h3 class="title is-4">MetaCanvas connector design</h3>
+					
+					<img src="./static/images/figure2.png" alt="Teaser Figure" width="65%">
+
+					<br><br>
+
+
+					<div class="content has-text-justified">
+						<p>
+							The connector comprises a vanilla Transformer block and a Diffusion Transformer (DiT) block. The vanilla Transformer block transforms the learnable canvas tokens to align them with the DiT latent space. The second DiT block adopts a ControlNet-style design, where the transformed canvas tokens and the noisy latents are first combined and then passed through a DiT block with Adaptive LayerNorm (<a href="https://arxiv.org/abs/1709.07871" target="_blank">Perez et al., 2018</a>). We adopt Linear-Attn and Mix-FFN design from (<a href="https://arxiv.org/abs/2410.10629" target="_blank">Xie et al., 2024a</a>) to reduce memory usage. The outputs of both blocks are followed by a zero-initialized linear projection layer, ensuring that at the beginning of training, the learnable canvas tokens have no influence on the DiT’s latent inputs.
+						</p>
+					</div>
+
+
+					
+					<hr>
+					
+
+					<h3 class="title is-4">MetaCanvas keyframes and reference/condition frames injection strategy for video tasks</h3>
+
+					<img src="./static/images/figure3.png" alt="keyframe injection" width="60%"
+						style="background-color: #f0f0f0; text-align: left;">
+
+					<br>
+					<br>
+
+					<div class="content has-text-justified">
+						<p>
+							We modify the input layer of Wan2.2-5B (<a href="https://arxiv.org/abs/2503.20314" target="_blank">Wan et al., 2025</a>) to concatenate reference and condition latents with noisy latents along the channel dimension. 
+							The resulting tensor is then passed through the patch embedding layer and combined with MetaCanvas keyframes after interpolation. 
+							Light purple tokens represent interpolated keyframe canvas. 
+							Note that we do not apply MetaCanvas keyframe latents to reference frames for video tasks.
+						</p>							
+					</div>
+
+					
+					<br><br>
+					<h2 class="title is-3">Quantitative Results</h2>
+					
+
+					<hr>
+					<br>
+					<h3 class="title is-4">Exploratory Experiments on T2I Generation</h3>
+					
+					
+					<div class="content has-text-justified">
+						<p>
+						  We aim to validate two questions here:<br>
+						  <strong style="color:orange;">Q1:</strong> Does MetaCanvas really help guide the generation process of diffusion models?<br>
+						  <strong style="color:orange;">Q2:</strong> What connector design is most effective?
+						</p>
+					</div>
+					
+					
+
+
+					<div class="content is-centered has-text-centered">
+						<!-- <h5 class="example-heading">Comparison with other design choices</h5> -->
+						<!-- Figure 4 with caption -->
+						
+						<div class="content has-text-justified">
+							<p>To answer <strong style="color:orange;">Q1</strong>, in <a href="#fig:geneval_curves" target="_blank">Figure 4 (left)</a>, we compare MetaCanvas with 
+								(1) the default SANA baseline (T5 text conditioning), 
+								(2) an architecture equivalent to MetaQuery <a href="https://arxiv.org/abs/2504.06256" target="_blank">(Pan et al., 2025)</a> that uses 256 learnable 1D query tokens produced by Qwen-2.5-VL while reusing the same text-conditioning interface, 
+								and (3) a variant that concatenates T5 text embeddings with the 256 MetaQuery tokens for additional context. 
+								As shown, combining text as global guidance with MetaCanvas as a visual prior yields consistent gains and has the fastest GenEval convergence among all variants.
+							</p>
+							<p>In <a href="#fig:geneval_curves" target="_blank">Figure 4 (right)</a>, we further evaluate a no-text variant. Even without any text conditioning, adding 2D learnable canvas tokens on top of the noisy latents in DiT provides meaningful structural guidance, demonstrating <em>effective information transfer from the MLLM to the DiT via MetaCanvas</em>.</p>
+						</div>
+						
+
+						<img src="./static/images/figure4.png" alt="Comparison of training loss and GEdit-Bench scores" width="99%">
+						<br>
+						<div class="content has-text-justified">
+							<p>
+								<b>Figure 4 Left:</b> Comparison of MetaCanvas with MetaQuery <a href="https://arxiv.org/abs/2504.06256" target="_blank">(Pan et al., 2025)</a> and text conditioning. <b>Right:</b> Comparison of MetaCanvas with and without additional text conditioning.
+							</p>
+						</div>
+
+						<br>
+
+
+
+						<!-- Figure 5 with caption -->						
+						<div class="content has-text-justified">
+							<p>
+								We train SANA (<a href="https://arxiv.org/abs/2410.10629" target="_blank">Xie et al., 2024a</a>) from scratch using only canvas tokens from Qwen2.5-VL (<a href="https://arxiv.org/abs/2502.13923" target="_blank">Wang et al., 2024a</a>) as the conditioning input, with no text signals provided to the DiT.
+								Following (<a href="https://arxiv.org/abs/2211.12572" target="_blank">Tumanyan et al., 2023</a>), we apply PCA to the features produced by the MetaCanvas connector.
+								Canvas tokens output from MLLM can serve as reasonable visual planning sketches to effectively guide the final image synthesis in the DiT.
+							</p>
+						</div>
+
+						<img src="./static/images/figure5.png" alt="Comparison of training loss and GEdit-Bench scores" width="99%">
+						<br>
+						<div class="content has-text-justified">
+							<p>
+								<b>Figure 5: Visualization of canvas features (1st row) and generated images (2nd row) using only canvas tokens without extra text conditioning in DiT.</b>
+							</p>
+						</div>
+					
+						
+					</div>
+					<br>
+
+
+
+					<!-- Table 1 with caption and ID for referencing -->
+					<div class="content has-text-justified">
+						<p>
+							We address <span style="color: orange; font-weight: bold;">Q2</span> with an ablation study on the
+							<span class="method">MetaCanvas</span> connector design in
+							<a href="#table:geneval_method_ablations">Table&nbsp;3</a>.
+							We find that conditioning on the timestep enables dynamic control over the influence of canvas tokens on the noisy latents,
+							while the proposed DiT block and accompanying transformer blocks effectively transform and fuse canvas-token information
+							with the latents. Moreover, avoiding early projection of canvas tokens into the low-dimensional VAE space yields
+							additional gains.
+						</p>
+					</div>
+
+					<figure id="table:results_imgedit_short">
+						<img src="./static/images/table3.png" alt="Quantitative comparison with models on ImgEdit benchmark" width="65%">
+						<figcaption>
+							<b>Table 3: Ablation study on MetaCanvas connector design.</b>
+						</figcaption>
+					</figure>
+					<br>
+
+			
+
+					
+
+					<hr>
+					<br>
+					<h3 class="title is-4">Results on Image Editing Task</h3>
+					
+					<div class="content has-text-justified">
+						<p>We evaluate the fine-tuned image-editing model FLUX.1-Kontext [Dev] <a href="https://arxiv.org/abs/2506.15742" target="_blank">(Batifol et al., 2025)</a> augmented with MetaCanvas against competing methods on ImgEdit-Bench (see <a href="#table:results_imgedit_short" target="_blank">Table 1</a>) and GEdit-Bench (see <a href="#table:results_gedit_short" target="_blank">Table 2</a>). 
+						Equipping FLUX.1-Kontext [Dev] with MetaCanvas yields consistent improvements on both benchmarks.</p>
+					</div>
+					
+					<!-- Table 1 with caption and ID for referencing -->
+					<figure id="table:results_imgedit_short">
+						<img src="./static/images/table1.png" alt="Quantitative comparison with models on ImgEdit benchmark" width="99%">
+						<figcaption>
+							<b>Table 1: Quantitative comparison with models on ImgEdit (<a href="https://arxiv.org/abs/2505.20275" target="_blank">Ye et al., 2025</a>) benchmark.</b>
+						</figcaption>
+					</figure>
+					<br>
+					
+					<!-- Table 2 with caption and ID for referencing -->
+					<figure id="table:results_gedit_short">
+						<img src="./static/images/table2.png" alt="Quantitative comparison results on GEdit-EN-full benchmark" width="99%">
+						<figcaption>
+							<b>Table 2: Quantitative comparison results on GEdit-EN-full (<a href="https://arxiv.org/abs/2504.17761" target="_blank">Liu et al., 2025</a>) benchmark.</b>
+						</figcaption>
+					</figure>
+					<br><br>
+					
+					<div class="content has-text-justified">
+						<p><a href="#fig:gedit_curve" target="_blank">Figure 6</a> further contrasts the vanilla model with its MetaCanvas-augmented counterpart under the same training setup, showing steady gains throughout training. 
+						Notably, these benefits come from adding only lightweight connector modules, incurring minimal parameter and computational overhead.</p>						
+					</div>
+					
+					<!-- Figure 6 with caption -->
+					<figure id="fig:gedit_curve">
+						<img src="./static/images/figure6.png" alt="Comparison of training loss and GEdit-Bench scores" width="80%" style="background-color: #f0f0f0; text-align: left;">
+						<figcaption>
+							<b>Figure 6: Comparison of training loss and GEdit-Bench (<a href="https://arxiv.org/abs/2504.17761" target="_blank">Liu et al., 2025</a>) scores for the baseline method without canvas tokens and MetaCanvas.</b> Both models are fine-tuned on the same training dataset.
+						</figcaption>
+					</figure>
+					
+					<br>
+					
+
+
+
+
+
+					<hr>
+					<br>
+					<h3 class="title is-4">Results on Video Generation Task</h3>
+					
+					<div class="content has-text-justified">
+						<p>
+							In <a href="#table:results_t2v_i2v">Table&nbsp;4</a>, we compare videos generated by
+							<span class="method">MetaCanvas</span> 
+							(see <a href="#subsec:exp_setup_training">Section&nbsp;Y</a>)
+							with open-source models, including
+							CogVideoX-5B (<a href="https://arxiv.org/abs/2408.06072" target="_blank">Yang et&nbsp;al.,&nbsp;2024</a>),
+							HunyuanVideo (<a href="https://arxiv.org/abs/2412.03603" target="_blank">Kong et&nbsp;al.,&nbsp;2024</a>),
+							Wan2.1-14B (<a href="https://arxiv.org/abs/2503.20314" target="_blank">Wan et&nbsp;al.,&nbsp;2025</a>),
+							and the baseline model Wan2.2-5B
+							(<a href="https://arxiv.org/abs/2503.20314" target="_blank">Wan et&nbsp;al.,&nbsp;2025</a>).
+							Our method achieves comparable performance while being
+							additionally equipped with strong video editing capabilities.
+						  </p>						  
+					</div>
+					
+					<!-- Table 1 with caption and ID for referencing -->
+					<figure id="table:results_imgedit_short">
+						<img src="./static/images/table4.png" alt="Quantitative comparison with models on ImgEdit benchmark" width="65%">
+						<figcaption>
+							<b>Table 4: Quantitative comparison results on VBench-I2V (<a href="https://arxiv.org/abs/2411.13503" target="_blank">Huang et al., 2024b</a>).</b> Best numbers are bolded, and the second best are underlined.
+						</figcaption>
+					</figure>
+					<br>
+					
+					
+
+
+					<hr>
+					<br>
+					<h3 class="title is-4">Results on Video Editing Task</h3>
+					
+					<div class="content has-text-justified">
+						<p>
+							We compare <span class="method">MetaCanvas</span> with recent SoTA models,
+							including InsViE (<a href="https://arxiv.org/abs/2503.20287" target="_blank">Wu et&nbsp;al.,&nbsp;2025</a>),
+							Ditto (<a href="https://arxiv.org/abs/2510.15742" target="_blank">Bai et&nbsp;al.,&nbsp;2025</a>),
+							and Lucy-Edit-Dev (<a href="https://huggingface.co/decart-ai/Lucy-Edit-Dev" target="_blank">Decart et&nbsp;al.,&nbsp;2025</a>),
+							as well as a control setup of our method that excludes canvas tokens.
+							As shown in <a href="#table:results_video_editing">Table&nbsp;X</a>,
+							<span class="method">MetaCanvas</span> achieves comparable video quality scores, as measured
+							by VBench (<a href="https://arxiv.org/abs/2311.17982" target="_blank">Huang et&nbsp;al.,&nbsp;2023</a>;
+							<a href="https://arxiv.org/abs/2411.13503" target="_blank">Huang et&nbsp;al.,&nbsp;2024</a>)
+							and GPT-4o (<a href="https://openai.com/index/hello-gpt-4o" target="_blank">OpenAI,&nbsp;2024</a>),
+							while outperforming all baselines in editing accuracy (<i>i.e.</i>, semantics) by a large margin.
+							In addition, we conduct human evaluations comparing Lucy-Edit-Dev&nbsp;v1.1, Ditto,
+							and <span class="method">MetaCanvas</span>, and report the win rates for editing accuracy,
+							spatio-temporal consistency, and overall user preference.
+							<span class="method">MetaCanvas</span> achieves the highest preference rate across all
+							evaluation dimensions.
+							Furthermore, the controlled variant without canvas tokens attains competitive or better
+							performance relative to other baselines, demonstrating the effectiveness of replacing
+							the text encoder with a MLLM-based multimodal condition encoder.
+						  </p>						  
+					</div>
+					  
+					
+					<!-- Table 2 with caption and ID for referencing -->
+					<figure id="table:results_gedit_short">
+						<img src="./static/images/table5.png" alt="Quantitative comparison results on GEdit-EN-full benchmark" width="99%">
+						<figcaption>
+							<b>Table 5: Quantitative comparison on video editing task.</b> Best numbers are bolded, and the second best are underlined.
+						</figcaption>
+					</figure>
+					<br>
+					
+
+					
+
+
+
+
+
+					<hr>
+					<br>
+					<h3 class="title is-4">Results on In-Context Video Generation Task</h3>
+					
+					<div class="content has-text-justified">
+						<p>
+							In <a href="#table:results_omnicontext_video">Table&nbsp;15</a>, we compare
+							<span class="method">MetaCanvas</span> with Wan-VACE
+							(<a href="https://arxiv.org/abs/2503.07598" target="_blank">Jiang et&nbsp;al.,&nbsp;2025</a>)
+							1.3B/14B on video generation from reference images.
+							<span class="method">MetaCanvas</span> achieves competitive performance with these baselines,
+							particularly on human-object interaction tasks (<i>i.e.</i>, character&nbsp;+&nbsp;object
+							under multiple ID categories).
+						  </p>									  
+					</div>
+					
+					<!-- Table 1 with caption and ID for referencing -->
+					<figure id="table:results_imgedit_short">
+						<img src="./static/images/table15.png" alt="Quantitative comparison with models on ImgEdit benchmark" width="99%">
+						<figcaption>
+							<b>Table 15 Quantitative comparison results on our OmniContext-Video benchmark for in-context video generation from reference images.
+						</figcaption>
+					</figure>
+					<!-- <br> -->
+					<!-- <hr> -->
+					
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+
+
+
+
+
+<!-- 
+
+	<section class="section" id="Limitations and Future Works">
+		<div class="container is-max-desktop content">
+			<h2 class="title">Limitations and Future Works</h2>
+			<p>
+			In this work, we primarily focus on investigating the effectiveness of information transfer between MLLMs and diffusion Transformers via MetaCanvas. 
+			Our approach follows prior work that bridges MLLMs with diffusion models through lightweight connector interfaces. 
+			One potential limitation of the current setup is that visual information (e.g., images and videos) is provided to both the MLLM and the diffusion models, following previous works
+			(<a href="https://arxiv.org/abs/2510.08377" target="_blank">Wei et al., 2025</a>,
+			<a href="https://arxiv.org/abs/2508.02324" target="_blank">Wu et al., 2025a</a>,
+			<a href="https://arxiv.org/abs/2506.03147" target="_blank">Lin et al., 2025</a>,
+			<a href="https://arxiv.org/abs/2506.18871" target="_blank">Wu et al., 2025b</a>,
+			<a href="https://arxiv.org/abs/2504.17761" target="_blank">Liu et al., 2025</a>)
+			to maximize performance. 
+			It would be interesting to explore whether a more elegant framework could be designed that passes all visual information solely to the MLLM, allowing DiT to directly render images and videos without repeated conditioning on visual inputs.
+			</p>
+			
+			<p>
+			Additionally, we evaluated the effectiveness of MetaCanvas across diverse tasks using text, image, video, or combinations thereof as inputs. 
+			However, we note that the quality of our curated training data is not optimal, and the scale of the data is limited for some of the tasks. 
+			For instance, we observed that the success rate for in-context video generation from three or more reference images is not high. 
+			Expanding the task-specific dataset could further improve performance.
+			</p>
+		</div>
+	</section> -->
+
+	<section class="section" id="BibTeX">
+		<div class="container is-max-desktop content">
+			<h2 class="title">BibTeX</h2>
+			<pre><code>@article{Lin2025MetaCanvas,
+	author = {Han Lin,  Xichen Pan,  Ziqi Huang,  Ji Hou,  Jialiang Wang,  Weifeng Chen,  Zecheng He,  Felix Juefei-Xu,  Junzhe Sun,  Zhipeng Fan,  Ali Thabet,  Mohit Bansal,  Chu Wang},
+	title  = {Exploring MLLM-Diffusion Information Transfer with MetaCanvas},
+	year   = {2025},
+}</code></pre>
+		</div>
+	</section>
+
+
+	<footer class="footer">
+		<div class="container">
+			<div class="columns is-centered">
+				<div class="column is-8">
+					<div class="content">
+						The webpage was adapted from <a href="https://github.com/nerfies/nerfies.github.io">nerfies</a>.
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	
 </body>
+<style>
+	code {
+		display: block;
+	}
+</style>
+<script>
+	var code = document.querySelector('pre code');
+	code.innerHTML = code.textContent.replace(/(\w)/, '<span>$1');
+	var left = code.querySelector('span').getClientRects()[0].left;
+	code.style.marginLeft = (-left + code.getClientRects()[0].left) + 'px';  
+</script>
+
 </html>

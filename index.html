@@ -1649,38 +1649,52 @@
 <!-- Add the draggable divider script here -->
 <script>
 	document.querySelectorAll('.video-compare-container').forEach(container => {
-	  const divider = container.querySelector('.video-compare-divider');
-	  const edited = container.querySelector('.video-compare-edited');
+	  const inputVideo = container.querySelector('.video-compare-input');
+	  const editedVideo = container.querySelector('.video-compare-edited');
 	
-	  function setPosition(x) {
-		const rect = container.getBoundingClientRect();
-		let relX = x - rect.left;
-		relX = Math.max(0, Math.min(relX, rect.width));
-		const percent = (relX / rect.width) * 100;
-		divider.style.left = percent + '%';
-		edited.style.clipPath = `inset(0 0 0 ${percent}%)`;
+	  function syncPlay() {
+		if (inputVideo.paused) editedVideo.pause();
+		else {
+		  editedVideo.currentTime = inputVideo.currentTime;
+		  editedVideo.play();
+		}
 	  }
 	
-	  container.addEventListener('mousemove', e => {
-		setPosition(e.clientX);
-	  });
+	  function syncPause() {
+		editedVideo.pause();
+	  }
 	
-	  // Optional: Reset divider to center when mouse leaves
-	  container.addEventListener('mouseleave', () => {
-		divider.style.left = '50%';
-		edited.style.clipPath = 'inset(0 0 0 50%)';
-	  });
+	  function syncSeek() {
+		editedVideo.currentTime = inputVideo.currentTime;
+	  }
 	
-	  // Touch support for mobile/tablet
-	  container.addEventListener('touchmove', e => {
-		if (e.touches.length > 0) setPosition(e.touches[0].clientX);
+	  function syncLoop() {
+		inputVideo.currentTime = 0;
+		editedVideo.currentTime = 0;
+		inputVideo.play();
+		editedVideo.play();
+	  }
+	
+	  inputVideo.addEventListener('play', syncPlay);
+	  inputVideo.addEventListener('pause', syncPause);
+	  inputVideo.addEventListener('seeked', syncSeek);
+	  inputVideo.addEventListener('timeupdate', () => {
+		// Keep videos in sync (small drift correction)
+		if (Math.abs(inputVideo.currentTime - editedVideo.currentTime) > 0.05) {
+		  editedVideo.currentTime = inputVideo.currentTime;
+		}
 	  });
-	  container.addEventListener('touchend', () => {
-		divider.style.left = '50%';
-		edited.style.clipPath = 'inset(0 0 0 50%)';
+	  inputVideo.addEventListener('ended', syncLoop);
+	
+	  // Optionally, start both videos together when loaded
+	  inputVideo.addEventListener('loadeddata', () => {
+		editedVideo.currentTime = inputVideo.currentTime;
+	  });
+	  editedVideo.addEventListener('loadeddata', () => {
+		inputVideo.currentTime = editedVideo.currentTime;
 	  });
 	});
-	</script>
+</script>
 <!-- Existing scripts and styles -->
 <style>
 	code {

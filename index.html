@@ -46,8 +46,8 @@
 					<div class="column has-text-centered">
 						<h1 class="title is-1 publication-title">
 							<!-- <span style="color: rgb(237, 178, 13);">C</span><span style="color: rgb(112, 48, 160);">T</span><span style="color: rgb(0, 176, 240);">R</span><span style="color: rgb(215, 49, 136);">L</span>-Adapter -->
-							Exploring MLLM-Diffusion Information Transfer with <span
-							style="color: rgb(112, 48, 160); font-size: 1em;">MetaCanvas</span>
+							Exploring MLLM-Diffusion Information Transfer with <br> 
+							<span style="color: rgb(112, 48, 160); font-size: 1em;">MetaCanvas</span>
 						</h1>
 						<div class="is-size-5 publication-authors">
 							<span class="author-block">
@@ -91,6 +91,7 @@
 								Zecheng He<sup>1,*</sup>
 							  </a>
 							</span>,&nbsp;
+							<br>
 						  
 							<span class="author-block">
 							  <a href="https://xujuefei.com/" target="_blank">
@@ -219,16 +220,16 @@
 		<div class="container is-max-desktop" style="max-width: 2500px !important;">
 			<div class="columns is-centered has-text-centered">
 				<div class="column is-four-fifths">
-					<h2 class="title is-3">Generated Examples</h2>
-					<p>Here we show examples for in-context video generation from reference images, and video editing tasks</p>
+					<h2 class="title is-3">Generated Video Gallery</h2>
+					<p>Here we present examples of in-context video generation, video editing, and text/image-to-video generation.</p>
 					<br><br>
 
 
-					<div class="content is-centered has-text-centered"   style="max-width: 1200px;margin: auto;">
+					<div class="content is-centered has-text-centered"   style="max-width: 1600px;margin: auto;">
 						<h3 class="example-heading">In-Context Video Generation</h3>
 						<hr>
 
-						<div style="max-width: 1200px;margin: auto;display: flex;flex-wrap: nowrap;">
+						<div style="max-width: 1600px;margin: auto;display: flex;flex-wrap: nowrap;">
 							<div class="content example">
 								<table>
 									<thead>
@@ -448,6 +449,58 @@
 
 
 
+
+
+										<!-- Figure7  -->
+										<tr>
+											<td>
+												<div style="display: flex;width: 125px;margin:auto; ">
+													<img width="125px" height="200px"
+														src="./static/videos/Figure8/ref_image_1.jpg">
+												</div>
+											</td>
+
+											<td>
+												<img style="position: relative;top:50%;transform: translateY(-50%);"
+													width="50px" src="./static/images/plus.png">
+											</td>
+											
+											<td>
+												<div style="display: flex;width: 200px;margin:auto; ">
+													<img width="200px" height="125px"
+														src="./static/videos/Figure8/ref_image_2.jpg">
+												</div>
+											</td>
+
+											<td>
+												<img style="position: relative;top:50%;transform: translateY(-50%);"
+													width="50px" src="./static/images/plus.png">
+											</td>
+
+											<td style="text-align: left;">
+												<p style="font-size: 1.1em;">
+													He gently cradles the bird as it <span style="color: rgb(112, 48, 160); font-weight: bold;">perches delicately on his outstretched fingers</span>, its feathers ruffling slightly in the warm breeze of a tranquil savanna. The golden grass sways softly around them under a vast sky painted with soft pastel hues of dawn, while <span style="color: rgb(112, 48, 160); font-weight: bold;">his focused gaze meets the bird’s bright eyes, creating a quiet moment of connection</span>.
+												</p>
+											</td>
+
+											<td>
+												<img style="position: relative;top:50%;transform: translateY(-50%);"
+													width="50px" src="./static/images/arrow_icon.jpg">
+											</td>
+
+											<td>
+												<div style="display: flex;width: 225px;margin:auto; margin: auto">
+													<video style="position: relative;" width="225px" height="125px"
+														src="./static/videos/Figure8/metacanvas_video.mp4" autoplay muted loop playsinline>
+												</div>
+											</td>
+										</tr>
+
+
+
+
+
+
 										<!-- Figure26 ref3 -->
 										<tr>
 											<td>
@@ -464,7 +517,7 @@
 											
 											<td>
 												<div style="display: flex;width: 150px;margin:auto; ">
-													<img width="150px" height="225px"
+													<img width="125px" height="200px"
 														src="./static/videos/Figure26/Reference_Images/video3_ref_image2.jpg">
 												</div>
 											</td>
@@ -685,14 +738,256 @@
 						.video-compare-divider:hover {
 						  background: #0af;
 						}
+						.video-prompt {
+						  margin-top: 4px; /* Reduce this value for less space, e.g., 4px if you want it even tighter */
+						  font-size: 1rem;
+						  text-align: center;
+						}
 					</style>
 						
-					<div class="video-compare-container" id="videoCompare">
-						<video class="video-compare-img" id="imgSource" src="./static/videos/video1_input.mp4" autoplay muted loop></video>
-						<video class="video-compare-img video-compare-edited" id="imgEdited" src="./static/videos/video1_output.mp4" autoplay muted loop></video>
-						<div class="video-compare-divider" id="videoDivider"></div>
+
+
+
+					<div class="content is-centered has-text-centered"   style="max-width: 1600px;margin: auto;">
+						<h3 class="example-heading">Video Editing</h3>
+						<hr>
+
+						<!-- Figure 7 -->
+						<div class="video-editing-row" style="display: flex; gap: 32px; margin-bottom: 32px; justify-content: center; align-items: flex-start;">
+							<!-- Video 1 -->
+							<div style="flex: 0 0 400px; max-width: 400px;">
+							  <div class="video-compare-container" data-index="1" style="width: 400px; height: 225px;">
+								<video class="video-compare-img" src="./static/videos/Figure7/video1_input.mp4" autoplay muted loop style="width: 400px; height: 225px; object-fit: cover;"></video>
+								<video class="video-compare-img video-compare-edited" src="./static/videos/Figure7/video1_output.mp4" autoplay muted loop style="width: 400px; height: 225px; object-fit: cover;"></video>
+								<div class="video-compare-divider"></div>
+							  </div>
+							  <div class="video-prompt" style="margin-top: 1px;">
+								Replace the blue leaf-patterned wall with a <span style="color: rgb(190, 79, 79); font-weight: bold;">soft, textured olive-green wallpaper featuring subtle white floral accents</span>.
+							  </div>
+							</div>
+							<!-- Video 2 -->
+							<div style="flex: 0 0 400px; max-width: 400px;">
+							  <div class="video-compare-container" data-index="2" style="width: 400px; height: 225px;">
+								<video class="video-compare-img" src="./static/videos/Figure7/video2_input.mp4" autoplay muted loop style="width: 400px; height: 225px; object-fit: cover;"></video>
+								<video class="video-compare-img video-compare-edited" src="./static/videos/Figure7/video2_output.mp4" autoplay muted loop style="width: 400px; height: 225px; object-fit: cover;"></video>
+								<div class="video-compare-divider"></div>
+							  </div>
+							  <div class="video-prompt" style="margin-top: 1px;">
+								Change the projected city background to a <span style="color: rgb(190, 79, 79); font-weight: bold;">rain-soaked, neon-lit street scene in Tokyo with glowing blue signage</span> that matches the room's ambient lighting.
+							  </div>
+							</div>
+							<!-- Video 3 -->
+							<div style="flex: 0 0 400px; max-width: 400px;">
+							  <div class="video-compare-container" data-index="3" style="width: 400px; height: 225px;">
+								<video class="video-compare-img" src="./static/videos/Figure18/video4_input.mp4" autoplay muted loop style="width: 400px; height: 225px; object-fit: cover;"></video>
+								<video class="video-compare-img video-compare-edited" src="./static/videos/Figure18/video4_output.mp4" autoplay muted loop style="width: 400px; height: 225px; object-fit: cover;"></video>
+								<div class="video-compare-divider"></div>
+							  </div>
+							  <div class="video-prompt" style="margin-top: 1px;">
+								Change the background to a <span style="color: rgb(190, 79, 79); font-weight: bold;">sunlit alpine road with snow-capped mountains and a blue sky</span>.
+							  </div>
+							</div>
+						</div>
+
+
+						<!-- Figure 20 -->
+						<div class="video-editing-row" style="display: flex; gap: 32px; margin-bottom: 32px; justify-content: center; align-items: flex-start;">
+							<!-- Video 1 -->
+							<div style="flex: 0 0 400px; max-width: 400px;">
+							  <div class="video-compare-container" data-index="1" style="width: 400px; height: 225px;">
+								<video class="video-compare-img" src="./static/videos/Figure20/video1_input.mp4" autoplay muted loop style="width: 400px; height: 225px; object-fit: cover;"></video>
+								<video class="video-compare-img video-compare-edited" src="./static/videos/Figure20/video1_output.mp4" autoplay muted loop style="width: 400px; height: 225px; object-fit: cover;"></video>
+								<div class="video-compare-divider"></div>
+							  </div>
+							  <div class="video-prompt" style="margin-top: 1px;">
+								Replace the <span style="color: rgb(190, 79, 79); font-weight: bold;">laptop screen</span> content with a flowing digital watercolor painting in soft teal and gold hues, matching the room's natural lighting.
+							  </div>
+							</div>
+							<!-- Video 2 -->
+							<div style="flex: 0 0 400px; max-width: 400px;">
+							  <div class="video-compare-container" data-index="2" style="width: 400px; height: 225px;">
+								<video class="video-compare-img" src="./static/videos/Figure20/video2_input.mp4" autoplay muted loop style="width: 400px; height: 225px; object-fit: cover;"></video>
+								<video class="video-compare-img video-compare-edited" src="./static/videos/Figure20/video2_output.mp4" autoplay muted loop style="width: 400px; height: 225px; object-fit: cover;"></video>
+								<div class="video-compare-divider"></div>
+							  </div>
+							  <div class="video-prompt" style="margin-top: 1px;">
+								Add in the background a <span style="color: rgb(190, 79, 79); font-weight: bold;">rustic wooden cabin</span> featuring a glowing window and a snow-laden roof.
+							  </div>
+							</div>
+							<!-- Video 3 -->
+							<div style="flex: 0 0 400px; max-width: 400px;">
+							  <div class="video-compare-container" data-index="3" style="width: 400px; height: 225px;">
+								<video class="video-compare-img" src="./static/videos/Figure20/video3_input.mp4" autoplay muted loop style="width: 400px; height: 225px; object-fit: cover;"></video>
+								<video class="video-compare-img video-compare-edited" src="./static/videos/Figure20/video3_output.mp4" autoplay muted loop style="width: 400px; height: 225px; object-fit: cover;"></video>
+								<div class="video-compare-divider"></div>
+							  </div>
+							  <div class="video-prompt" style="margin-top: 1px;">
+								Replace the <span style="color: rgb(190, 79, 79); font-weight: bold;">green leaf pattern on the blanket</span> with a delicate pattern of small white daisies on a soft light blue background.
+							  </div>
+							</div>
+						</div>
+
+
+
+						<!-- Figure 21 -->
+						<div class="video-editing-row" style="display: flex; gap: 32px; margin-bottom: 32px; justify-content: center; align-items: flex-start;">
+							<!-- Video 1 -->
+							<div style="flex: 0 0 400px; max-width: 400px;">
+							  <div class="video-compare-container" data-index="1" style="width: 400px; height: 225px;">
+								<video class="video-compare-img" src="./static/videos/Figure21/video1_input.mp4" autoplay muted loop style="width: 400px; height: 225px; object-fit: cover;"></video>
+								<video class="video-compare-img video-compare-edited" src="./static/videos/Figure21/video1_output.mp4" autoplay muted loop style="width: 400px; height: 225px; object-fit: cover;"></video>
+								<div class="video-compare-divider"></div>
+							  </div>
+							  <div class="video-prompt" style="margin-top: 1px;">
+								Replace the <span style="color: rgb(190, 79, 79); font-weight: bold;">pink coffee cup</span> with a vintage porcelain cup featuring a delicate blue floral pattern, maintaining the same placement and lighting on the green table.
+							  </div>
+							</div>
+							<!-- Video 2 -->
+							<div style="flex: 0 0 400px; max-width: 400px;">
+							  <div class="video-compare-container" data-index="2" style="width: 400px; height: 225px;">
+								<video class="video-compare-img" src="./static/videos/Figure21/video2_input.mp4" autoplay muted loop style="width: 400px; height: 225px; object-fit: cover;"></video>
+								<video class="video-compare-img video-compare-edited" src="./static/videos/Figure21/video2_output.mp4" autoplay muted loop style="width: 400px; height: 225px; object-fit: cover;"></video>
+								<div class="video-compare-divider"></div>
+							  </div>
+							  <div class="video-prompt" style="margin-top: 1px;">
+								Replace the blurred colorful planets with <span style="color: rgb(190, 79, 79); font-weight: bold;">high-definition, realistic celestial bodies</span> showing visible cloud formations and textured surfaces, matching the boy's space-themed play
+							  </div>
+							</div>
+							<!-- Video 3 -->
+							<div style="flex: 0 0 400px; max-width: 400px;">
+							  <div class="video-compare-container" data-index="3" style="width: 400px; height: 225px;">
+								<video class="video-compare-img" src="./static/videos/Figure21/video3_input.mp4" autoplay muted loop style="width: 400px; height: 225px; object-fit: cover;"></video>
+								<video class="video-compare-img video-compare-edited" src="./static/videos/Figure21/video3_output.mp4" autoplay muted loop style="width: 400px; height: 225px; object-fit: cover;"></video>
+								<div class="video-compare-divider"></div>
+							  </div>
+							  <div class="video-prompt" style="margin-top: 1px;">
+								Change the copper mug’s surface to a <span style="color: rgb(190, 79, 79); font-weight: bold;">frosty, icy finish with delicate ice crystals forming on its exterior</span>, reflecting the dim snowy light.
+							  </div>
+							</div>
+						</div>
+
+
+
+						<!-- Figure 22 -->
+						<div class="video-editing-row" style="display: flex; gap: 32px; margin-bottom: 32px; justify-content: center; align-items: flex-start;">
+							<!-- Video 1 -->
+							<div style="flex: 0 0 400px; max-width: 400px;">
+							  <div class="video-compare-container" data-index="1" style="width: 400px; height: 225px;">
+								<video class="video-compare-img" src="./static/videos/Figure22/video1_input.mp4" autoplay muted loop style="width: 400px; height: 225px; object-fit: cover;"></video>
+								<video class="video-compare-img video-compare-edited" src="./static/videos/Figure22/video1_output.mp4" autoplay muted loop style="width: 400px; height: 225px; object-fit: cover;"></video>
+								<div class="video-compare-divider"></div>
+							  </div>
+							  <div class="video-prompt" style="margin-top: 1px;">
+								Replace the guitar's body with a <span style="color: rgb(190, 79, 79); font-weight: bold;">deep, glossy cherry wood finish</span> that mirrors the soft light on the left side of the frame.
+							  </div>
+							</div>
+							<!-- Video 2 -->
+							<div style="flex: 0 0 400px; max-width: 400px;">
+							  <div class="video-compare-container" data-index="2" style="width: 400px; height: 225px;">
+								<video class="video-compare-img" src="./static/videos/Figure22/video2_input.mp4" autoplay muted loop style="width: 400px; height: 225px; object-fit: cover;"></video>
+								<video class="video-compare-img video-compare-edited" src="./static/videos/Figure22/video2_output.mp4" autoplay muted loop style="width: 400px; height: 225px; object-fit: cover;"></video>
+								<div class="video-compare-divider"></div>
+							  </div>
+							  <div class="video-prompt" style="margin-top: 1px;">
+								Change the background to a <span style="color: rgb(190, 79, 79); font-weight: bold;">smooth, pale green ceramic plate with subtle floral patterns</span>, enhancing the sushi's traditional presentation.
+							  </div>
+							</div>
+							<!-- Video 3 -->
+							<div style="flex: 0 0 400px; max-width: 400px;">
+							  <div class="video-compare-container" data-index="3" style="width: 400px; height: 225px;">
+								<video class="video-compare-img" src="./static/videos/Figure22/video3_input.mp4" autoplay muted loop style="width: 400px; height: 225px; object-fit: cover;"></video>
+								<video class="video-compare-img video-compare-edited" src="./static/videos/Figure22/video3_output.mp4" autoplay muted loop style="width: 400px; height: 225px; object-fit: cover;"></video>
+								<div class="video-compare-divider"></div>
+							  </div>
+							  <div class="video-prompt" style="margin-top: 1px;">
+								Replace the pineapple-shaped inflatable ring with a <span style="color: rgb(190, 79, 79); font-weight: bold;">smooth, glossy ring that reflects the ocean's blue hues</span>.
+							  </div>
+							</div>
+						</div>
+
+
+
+
+						<!-- Figure 23 -->
+						<div class="video-editing-row" style="display: flex; gap: 32px; margin-bottom: 32px; justify-content: center; align-items: flex-start;">
+							<!-- Video 1 -->
+							<div style="flex: 0 0 400px; max-width: 400px;">
+							  <div class="video-compare-container" data-index="1" style="width: 400px; height: 225px;">
+								<video class="video-compare-img" src="./static/videos/Figure23/video1_input.mp4" autoplay muted loop style="width: 400px; height: 225px; object-fit: cover;"></video>
+								<video class="video-compare-img video-compare-edited" src="./static/videos/Figure23/video1_output.mp4" autoplay muted loop style="width: 400px; height: 225px; object-fit: cover;"></video>
+								<div class="video-compare-divider"></div>
+							  </div>
+							  <div class="video-prompt" style="margin-top: 1px;">
+								Change the background to a <span style="color: rgb(190, 79, 79); font-weight: bold;">tranquil, misty alpine meadow</span> with wildflowers and distant snow-capped peaks, maintaining the same warm, natural lighting and camera perspective.
+							  </div>
+							</div>
+							<!-- Video 2 -->
+							<div style="flex: 0 0 400px; max-width: 400px;">
+							  <div class="video-compare-container" data-index="2" style="width: 400px; height: 225px;">
+								<video class="video-compare-img" src="./static/videos/Figure23/video2_input.mp4" autoplay muted loop style="width: 400px; height: 225px; object-fit: cover;"></video>
+								<video class="video-compare-img video-compare-edited" src="./static/videos/Figure23/video2_output.mp4" autoplay muted loop style="width: 400px; height: 225px; object-fit: cover;"></video>
+								<div class="video-compare-divider"></div>
+							  </div>
+							  <div class="video-prompt" style="margin-top: 1px;">
+								Change the wooden surface to a <span style="color: rgb(190, 79, 79); font-weight: bold;">smooth, light gray stone surface</span> with subtle marbling patterns.
+							  </div>
+							</div>
+							<!-- Video 3 -->
+							<div style="flex: 0 0 400px; max-width: 400px;">
+							  <div class="video-compare-container" data-index="3" style="width: 400px; height: 225px;">
+								<video class="video-compare-img" src="./static/videos/Figure23/video3_input.mp4" autoplay muted loop style="width: 400px; height: 225px; object-fit: cover;"></video>
+								<video class="video-compare-img video-compare-edited" src="./static/videos/Figure23/video3_output.mp4" autoplay muted loop style="width: 400px; height: 225px; object-fit: cover;"></video>
+								<div class="video-compare-divider"></div>
+							  </div>
+							  <div class="video-prompt" style="margin-top: 1px;">
+								Shift the lighting from cool purple-blue tones to <span style="color: rgb(190, 79, 79); font-weight: bold;">warm golden-hour sunlight</span>, casting honey- gold highlights through the woman's curls while maintaining the slow-motion movement and cinematic depth.
+							  </div>
+							</div>
+						</div>
+
+
+
+						<!-- Figure 24 -->
+						<div class="video-editing-row" style="display: flex; gap: 32px; margin-bottom: 32px; justify-content: center; align-items: flex-start;">
+							<!-- Video 1 -->
+							<div style="flex: 0 0 400px; max-width: 400px;">
+							  <div class="video-compare-container" data-index="1" style="width: 400px; height: 225px;">
+								<video class="video-compare-img" src="./static/videos/Figure24/video1_input.mp4" autoplay muted loop style="width: 400px; height: 225px; object-fit: cover;"></video>
+								<video class="video-compare-img video-compare-edited" src="./static/videos/Figure24/video1_output.mp4" autoplay muted loop style="width: 400px; height: 225px; object-fit: cover;"></video>
+								<div class="video-compare-divider"></div>
+							  </div>
+							  <div class="video-prompt" style="margin-top: 1px;">
+								Make it <span style="color: rgb(190, 79, 79); font-weight: bold;">Children's Book Illustration</span>.
+							  </div>
+							</div>
+							<!-- Video 2 -->
+							<div style="flex: 0 0 400px; max-width: 400px;">
+							  <div class="video-compare-container" data-index="2" style="width: 400px; height: 225px;">
+								<video class="video-compare-img" src="./static/videos/Figure24/video2_input.mp4" autoplay muted loop style="width: 400px; height: 225px; object-fit: cover;"></video>
+								<video class="video-compare-img video-compare-edited" src="./static/videos/Figure24/video2_output.mp4" autoplay muted loop style="width: 400px; height: 225px; object-fit: cover;"></video>
+								<div class="video-compare-divider"></div>
+							  </div>
+							  <div class="video-prompt" style="margin-top: 1px;">
+								Convert the video into a <span style="color: rgb(190, 79, 79); font-weight: bold;">pixel art style</span> by reducing the resolution and creating a mosaic effect with square-shaped pixels and simplified colors for a classic pixelated appearance.
+							  </div>
+							</div>
+							<!-- Video 3 -->
+							<div style="flex: 0 0 400px; max-width: 400px;">
+							  <div class="video-compare-container" data-index="3" style="width: 400px; height: 225px;">
+								<video class="video-compare-img" src="./static/videos/Figure24/video3_input.mp4" autoplay muted loop style="width: 400px; height: 225px; object-fit: cover;"></video>
+								<video class="video-compare-img video-compare-edited" src="./static/videos/Figure24/video3_output.mp4" autoplay muted loop style="width: 400px; height: 225px; object-fit: cover;"></video>
+								<div class="video-compare-divider"></div>
+							  </div>
+							  <div class="video-prompt" style="margin-top: 1px;">
+								Convert the snowy mountain landscape into a <span style="color: rgb(190, 79, 79); font-weight: bold;">watercolor painting</span>.
+							  </div>
+							</div>
+						</div>
+
+
+
 					</div>
-						
+							
 					<script>
 						window.addEventListener('DOMContentLoaded', () => {
 						  const container = document.getElementById('videoCompare');
@@ -748,7 +1043,171 @@
 						});
 					</script>
 
-				
+
+
+
+					<br><br><br>
+					<div class="content is-centered has-text-centered"   style="max-width: 1600px;margin: auto;">
+						<h3 class="example-heading">Text/Image-to-Video Generation</h3>
+						<hr>
+
+						<div style="max-width: 1600px;margin: auto;display: flex;flex-wrap: nowrap;">
+							<div class="content example">
+								<table>
+									<thead>
+										<tr style="font-size: 1em;">
+											<th>Input Image (Optional)</th>
+											<th></th>
+											<th>Input Prompt</th>
+											<th></th>
+											<th>Generated Video<br></th>
+										</tr>
+									</thead>
+									<tbody>
+										
+
+
+										<!-- Figure16 video2 -->
+										<tr>
+											<td>
+											</td>
+
+											<td>
+											</td>
+
+											<td style="text-align: left;">
+												<p style="font-size: 1.1em;">
+													<!-- A person playing guitar. -->
+													A person playing a acoustic guitar, strumming gently with expressive fingers, sitting on a wooden stool in a cozy living room. The room is dimly lit with soft candlelight casting warm shadows. Behind them, a vintage wall clock ticks softly. The person wears a t-shirt and jeans, with tousled brown hair framing their face. They play with emotion, occasionally pausing to adjust the strings. The background features old bookshelves filled with various musical instruments and a crackling fireplace. The scene has a nostalgic and intimate atmosphere, capturing the joy and passion of music. Close-up of the guitar and fingers, medium shot of the person and room, low-angle shot of the guitar.
+												</p>
+											</td>
+
+											<td>
+												<img style="position: relative;top:50%;transform: translateY(-50%);"
+													width="50px" src="./static/images/arrow_icon.jpg">
+											</td>
+
+											<td>
+												<div style="display: flex;width: 225px;margin:auto; margin: auto">
+													<video style="position: relative;" width="225px" height="125px"
+														src="./static/videos/Figure16/video2.mp4" autoplay muted loop playsinline>
+												</div>
+											</td>
+										</tr>
+
+
+
+										<!-- Figure16 video3 -->
+										<tr>
+											<td>
+											</td>
+
+											<td>
+											</td>
+
+											<td style="text-align: left;">
+												<p style="font-size: 1.1em;">
+													Pixel art style, a cute and happy Corgi playing joyfully in a picturesque park during a beautiful sunset. The Corgi has fluffy white fur, expressive brown eyes, and a wagging tail. It is wearing a small red bowtie around its neck. The park is filled with lush green grass, colorful flowers, and tall trees. The sky is painted with vibrant hues of orange and pink as the sun sets behind a row of buildings. Birds can be seen flying around, adding to the lively atmosphere. The Corgi is running around, chasing butterflies and playing with a small ball. The background includes a mix of pixelated and smooth elements, creating a unique and nostalgic vibe. Pixel art texture, medium shot focusing on the Corgi in action.
+												</p>
+											</td>
+
+											<td>
+												<img style="position: relative;top:50%;transform: translateY(-50%);"
+													width="50px" src="./static/images/arrow_icon.jpg">
+											</td>
+
+											<td>
+												<div style="display: flex;width: 225px;margin:auto; margin: auto">
+													<video style="position: relative;" width="225px" height="125px"
+														src="./static/videos/Figure16/video3.mp4" autoplay muted loop playsinline>
+												</div>
+											</td>
+										</tr>
+
+
+
+
+										<!-- Figure16 video5 -->
+										<tr>
+											<td>
+												<div style="display: flex;width: 200px;margin:auto; ">
+													<img width="200px" height="125px"
+														src="./static/videos/Figure16/video5.png">
+												</div>
+											</td>
+
+											<td>
+												<img style="position: relative;top:50%;transform: translateY(-50%);"
+													width="50px" src="./static/images/plus.png">
+											</td>
+
+											<td style="text-align: left;">
+												<p style="font-size: 1.1em;">
+													A young man is covered in colored powder.
+												</p>
+											</td>
+
+											<td>
+												<img style="position: relative;top:50%;transform: translateY(-50%);"
+													width="50px" src="./static/images/arrow_icon.jpg">
+											</td>
+
+											<td>
+												<div style="display: flex;width: 225px;margin:auto; margin: auto">
+													<video style="position: relative;" width="225px" height="125px"
+														src="./static/videos/Figure16/video5.mp4" autoplay muted loop playsinline>
+												</div>
+											</td>
+										</tr>
+
+
+
+
+
+										<!-- Figure19 video1 -->
+										<tr>
+											<td>
+												<div style="display: flex;width: 200px;margin:auto; ">
+													<img width="200px" height="125px"
+														src="./static/videos/Figure19//MetaCanvas/video1.png">
+												</div>
+											</td>
+
+											<td>
+												<img style="position: relative;top:50%;transform: translateY(-50%);"
+													width="50px" src="./static/images/plus.png">
+											</td>
+
+											<td style="text-align: left;">
+												<p style="font-size: 1.1em;">
+													Tower bridge in london, camera zooms in.
+												</p>
+											</td>
+
+											<td>
+												<img style="position: relative;top:50%;transform: translateY(-50%);"
+													width="50px" src="./static/images/arrow_icon.jpg">
+											</td>
+
+											<td>
+												<div style="display: flex;width: 225px;margin:auto; margin: auto">
+													<video style="position: relative;" width="225px" height="125px"
+														src="./static/videos/Figure19//MetaCanvas/video1.mp4" autoplay muted loop playsinline>
+												</div>
+											</td>
+										</tr>
+
+
+
+
+								
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<br><br>
+
 				</div>
 			</div>
 		</div>
@@ -769,35 +1228,46 @@
 					<hr>
 					<h3 class="title is-4">MetaCanvas connector design</h3>
 					
-					<img src="./static/images/figure2.png" alt="Teaser Figure" width="65%">
+					<img src="./static/images/figure2.png" alt="Teaser Figure" width="50%">
 
-					<br><br>
+					<br>
+					<div class="content" style="text-align: center;">
+						<p>
+							<b>Figure 2: MetaCanvas connector design details.</b>
+						</p>
+					</div>
+					
 
 
 					<div class="content has-text-justified">
 						<p>
-							The connector comprises a vanilla Transformer block and a Diffusion Transformer (DiT) block. The vanilla Transformer block transforms the learnable canvas tokens to align them with the DiT latent space. The second DiT block adopts a ControlNet-style design, where the transformed canvas tokens and the noisy latents are first combined and then passed through a DiT block with Adaptive LayerNorm (<a href="https://arxiv.org/abs/1709.07871" target="_blank">Perez et al., 2018</a>). We adopt Linear-Attn and Mix-FFN design from (<a href="https://arxiv.org/abs/2410.10629" target="_blank">Xie et al., 2024a</a>) to reduce memory usage. The outputs of both blocks are followed by a zero-initialized linear projection layer, ensuring that at the beginning of training, the learnable canvas tokens have no influence on the DiT’s latent inputs.
+						The canvas connector comprises a vanilla Transformer block and a Diffusion Transformer (DiT) block. The vanilla Transformer block transforms the learnable canvas tokens to align them with the DiT latent space. The second DiT block adopts a ControlNet-style design, where the transformed canvas tokens and the noisy latents are first combined and then passed through a DiT block with Adaptive LayerNorm (<a href="https://arxiv.org/abs/1709.07871" target="_blank">Perez et al., 2018</a>). We adopt Linear-Attn and Mix-FFN design from (<a href="https://arxiv.org/abs/2410.10629" target="_blank">Xie et al., 2024a</a>) to reduce memory usage. The outputs of both blocks are followed by a zero-initialized linear projection layer, ensuring that at the beginning of training, the learnable canvas tokens have no influence on the DiT’s latent inputs.
 						</p>
 					</div>
 
 
-					
 					<hr>
+					<br><br>
 					
 
 					<h3 class="title is-4">MetaCanvas keyframes and reference/condition frames injection strategy for video tasks</h3>
 
-					<img src="./static/images/figure3.png" alt="keyframe injection" width="60%"
+					<img src="./static/images/figure3.png" alt="keyframe injection" width="50%"
 						style="background-color: #f0f0f0; text-align: left;">
 
 					<br>
-					<br>
+					<div class="content" style="text-align: center;">
+						<p>
+							<b>Figure 3: MetaCanvas keyframes and reference/condition frames injection strategy for video tasks.</b>
+						</p>
+					</div>
+
 
 					<div class="content has-text-justified">
 						<p>
 							We modify the input layer of Wan2.2-5B (<a href="https://arxiv.org/abs/2503.20314" target="_blank">Wan et al., 2025</a>) to concatenate reference and condition latents with noisy latents along the channel dimension. 
 							The resulting tensor is then passed through the patch embedding layer and combined with MetaCanvas keyframes after interpolation. 
-							Light purple tokens represent interpolated keyframe canvas. 
+							<span style="color: rgb(219, 151, 242); font-weight: bold;">Light purple</span> tokens represent interpolated keyframe canvas. 
 							Note that we do not apply MetaCanvas keyframe latents to reference frames for video tasks.
 						</p>							
 					</div>
@@ -810,7 +1280,8 @@
 					<hr>
 					<br>
 					<h3 class="title is-4">Exploratory Experiments on T2I Generation</h3>
-					
+
+					<br>
 					
 					<div class="content has-text-justified">
 						<p>
@@ -819,57 +1290,86 @@
 						  <strong style="color:orange;">Q2:</strong> What connector design is most effective?
 						</p>
 					</div>
-					
-					
 
+
+					<br>
+					
+					
 
 					<div class="content is-centered has-text-centered">
 						<!-- <h5 class="example-heading">Comparison with other design choices</h5> -->
 						<!-- Figure 4 with caption -->
 						
 						<div class="content has-text-justified">
-							<p>To answer <strong style="color:orange;">Q1</strong>, in <a href="#fig:geneval_curves" target="_blank">Figure 4 (left)</a>, we compare MetaCanvas with 
+							<p>
+								To answer <strong style="color:orange;">Q1</strong>, in 
+								<a href="#fig:geneval_curves">Figure 4 (left)</a>, we compare MetaCanvas with 
 								(1) the default SANA baseline (T5 text conditioning), 
-								(2) an architecture equivalent to MetaQuery <a href="https://arxiv.org/abs/2504.06256" target="_blank">(Pan et al., 2025)</a> that uses 256 learnable 1D query tokens produced by Qwen-2.5-VL while reusing the same text-conditioning interface, 
+								(2) an architecture equivalent to MetaQuery 
+								<a href="https://arxiv.org/abs/2504.06256" target="_blank">(Pan et al., 2025)</a> 
+								that uses 256 learnable 1D query tokens produced by Qwen-2.5-VL while reusing the same text-conditioning interface, 
 								and (3) a variant that concatenates T5 text embeddings with the 256 MetaQuery tokens for additional context. 
 								As shown, combining text as global guidance with MetaCanvas as a visual prior yields consistent gains and has the fastest GenEval convergence among all variants.
 							</p>
-							<p>In <a href="#fig:geneval_curves" target="_blank">Figure 4 (right)</a>, we further evaluate a no-text variant. Even without any text conditioning, adding 2D learnable canvas tokens on top of the noisy latents in DiT provides meaningful structural guidance, demonstrating <em>effective information transfer from the MLLM to the DiT via MetaCanvas</em>.</p>
-						</div>
 						
-
-						<img src="./static/images/figure4.png" alt="Comparison of training loss and GEdit-Bench scores" width="99%">
-						<br>
-						<div class="content has-text-justified">
 							<p>
-								<b>Figure 4 Left:</b> Comparison of MetaCanvas with MetaQuery <a href="https://arxiv.org/abs/2504.06256" target="_blank">(Pan et al., 2025)</a> and text conditioning. <b>Right:</b> Comparison of MetaCanvas with and without additional text conditioning.
+								In <a href="#fig:geneval_curves">Figure 4 (right)</a>, we further evaluate a no-text variant. 
+								Even without any text conditioning, adding 2D learnable canvas tokens on top of the noisy latents in DiT provides meaningful structural guidance, 
+								demonstrating <em>effective information transfer from the MLLM to the DiT via MetaCanvas</em>.
 							</p>
 						</div>
-
+						
 						<br>
+						
+						<!-- Figure 4 anchor target -->
+						<div id="fig:geneval_curves" class="content" style="text-align: center;">
+							<img src="./static/images/figure4.png" 
+								 alt="Comparison of training loss and GEdit-Bench scores" 
+								 width="60%">
+							<br>
+							<p>
+								<b>Figure 4 Left:</b> Comparison of MetaCanvas with MetaQuery and text conditioning. 
+								<b>Right:</b> Comparison of MetaCanvas with and without additional text conditioning.
+							</p>
+						</div>
+						
+						<br><br>
+						
 
 
 
 						<!-- Figure 5 with caption -->						
 						<div class="content has-text-justified">
 							<p>
-								We train SANA (<a href="https://arxiv.org/abs/2410.10629" target="_blank">Xie et al., 2024a</a>) from scratch using only canvas tokens from Qwen2.5-VL (<a href="https://arxiv.org/abs/2502.13923" target="_blank">Wang et al., 2024a</a>) as the conditioning input, with no text signals provided to the DiT.
-								Following (<a href="https://arxiv.org/abs/2211.12572" target="_blank">Tumanyan et al., 2023</a>), we apply PCA to the features produced by the MetaCanvas connector.
-								Canvas tokens output from MLLM can serve as reasonable visual planning sketches to effectively guide the final image synthesis in the DiT.
+								In <a href="#fig:canvas_visualization">Figure 5</a>, we visualize the canvas tokens by training SANA
+								(<a href="https://arxiv.org/abs/2410.10629" target="_blank">Xie et al., 2024a</a>) from scratch using only
+								canvas tokens from Qwen2.5-VL
+								(<a href="https://arxiv.org/abs/2502.13923" target="_blank">Wang et al., 2024a</a>) as the conditioning input,
+								with no text signals provided to the DiT.
+								Following
+								(<a href="https://arxiv.org/abs/2211.12572" target="_blank">Tumanyan et al., 2023</a>),
+								we apply PCA to the features produced by the MetaCanvas connector.
+								Canvas tokens output from MLLM can serve as reasonable visual planning sketches to effectively guide the final
+								image synthesis in the DiT.
 							</p>
 						</div>
 
-						<img src="./static/images/figure5.png" alt="Comparison of training loss and GEdit-Bench scores" width="99%">
-						<br>
-						<div class="content has-text-justified">
+						<!-- Figure 5 anchor target -->
+						<div id="fig:canvas_visualization" class="content" style="text-align: center;">
+							<img src="./static/images/figure5.png"
+								alt="Visualization of canvas features and generated images"
+								width="85%">
+							<br>
 							<p>
-								<b>Figure 5: Visualization of canvas features (1st row) and generated images (2nd row) using only canvas tokens without extra text conditioning in DiT.</b>
+								<b>Figure 5: Visualization of canvas features (1st row) and generated images (2nd row) using only canvas
+								tokens without extra text conditioning in DiT.</b>
 							</p>
 						</div>
+
 					
 						
 					</div>
-					<br>
+					<br><br>
 
 
 
@@ -878,7 +1378,7 @@
 						<p>
 							We address <span style="color: orange; font-weight: bold;">Q2</span> with an ablation study on the
 							<span class="method">MetaCanvas</span> connector design in
-							<a href="#table:geneval_method_ablations">Table&nbsp;3</a>.
+							<a href="#table:geneval_method_ablations">Table&nbsp;1</a>.
 							We find that conditioning on the timestep enables dynamic control over the influence of canvas tokens on the noisy latents,
 							while the proposed DiT block and accompanying transformer blocks effectively transform and fuse canvas-token information
 							with the latents. Moreover, avoiding early projection of canvas tokens into the low-dimensional VAE space yields
@@ -886,41 +1386,46 @@
 						</p>
 					</div>
 
-					<figure id="table:results_imgedit_short">
-						<img src="./static/images/table3.png" alt="Quantitative comparison with models on ImgEdit benchmark" width="65%">
+					<!-- Table 1 -->
+					<figure id="table:geneval_method_ablations">
+						<img src="./static/images/table3.png"
+							alt="Ablation study on MetaCanvas connector design"
+							width="45%">
 						<figcaption>
-							<b>Table 3: Ablation study on MetaCanvas connector design.</b>
+							<b>Table 1: Ablation study on MetaCanvas connector design.</b>
 						</figcaption>
 					</figure>
-					<br>
+
+					
+
 
 			
 
 					
-
-					<hr>
 					<br>
+					<hr>
+					<br><br>
 					<h3 class="title is-4">Results on Image Editing Task</h3>
 					
 					<div class="content has-text-justified">
-						<p>We evaluate the fine-tuned image-editing model FLUX.1-Kontext [Dev] <a href="https://arxiv.org/abs/2506.15742" target="_blank">(Batifol et al., 2025)</a> augmented with MetaCanvas against competing methods on ImgEdit-Bench (see <a href="#table:results_imgedit_short" target="_blank">Table 1</a>) and GEdit-Bench (see <a href="#table:results_gedit_short" target="_blank">Table 2</a>). 
+						<p>We evaluate the fine-tuned image-editing model FLUX.1-Kontext [Dev] <a href="https://arxiv.org/abs/2506.15742" target="_blank">(Batifol et al., 2025)</a> augmented with MetaCanvas against competing methods on ImgEdit-Bench (see <a href="#table:results_imgedit_short" target="_blank">Table 2</a>) and GEdit-Bench (see <a href="#table:results_gedit_short" target="_blank">Table 3</a>). 
 						Equipping FLUX.1-Kontext [Dev] with MetaCanvas yields consistent improvements on both benchmarks.</p>
 					</div>
 					
 					<!-- Table 1 with caption and ID for referencing -->
 					<figure id="table:results_imgedit_short">
-						<img src="./static/images/table1.png" alt="Quantitative comparison with models on ImgEdit benchmark" width="99%">
+						<img src="./static/images/table1.png" alt="Quantitative comparison with models on ImgEdit benchmark" width="80%">
 						<figcaption>
-							<b>Table 1: Quantitative comparison with models on ImgEdit (<a href="https://arxiv.org/abs/2505.20275" target="_blank">Ye et al., 2025</a>) benchmark.</b>
+							<b>Table 2: Quantitative comparison with models on ImgEdit (<a href="https://arxiv.org/abs/2505.20275" target="_blank">Ye et al., 2025</a>) benchmark.</b>
 						</figcaption>
 					</figure>
 					<br>
 					
 					<!-- Table 2 with caption and ID for referencing -->
 					<figure id="table:results_gedit_short">
-						<img src="./static/images/table2.png" alt="Quantitative comparison results on GEdit-EN-full benchmark" width="99%">
+						<img src="./static/images/table2.png" alt="Quantitative comparison results on GEdit-EN-full benchmark" width="80%">
 						<figcaption>
-							<b>Table 2: Quantitative comparison results on GEdit-EN-full (<a href="https://arxiv.org/abs/2504.17761" target="_blank">Liu et al., 2025</a>) benchmark.</b>
+							<b>Table 3: Quantitative comparison results on GEdit-EN-full (<a href="https://arxiv.org/abs/2504.17761" target="_blank">Liu et al., 2025</a>) benchmark.</b>
 						</figcaption>
 					</figure>
 					<br><br>
@@ -932,9 +1437,9 @@
 					
 					<!-- Figure 6 with caption -->
 					<figure id="fig:gedit_curve">
-						<img src="./static/images/figure6.png" alt="Comparison of training loss and GEdit-Bench scores" width="80%" style="background-color: #f0f0f0; text-align: left;">
+						<img src="./static/images/figure6.png" alt="Comparison of training loss and GEdit-Bench scores" width="60%" style="background-color: #f0f0f0; text-align: left;">
 						<figcaption>
-							<b>Figure 6: Comparison of training loss and GEdit-Bench (<a href="https://arxiv.org/abs/2504.17761" target="_blank">Liu et al., 2025</a>) scores for the baseline method without canvas tokens and MetaCanvas.</b> Both models are fine-tuned on the same training dataset.
+							<b>Figure 6: Comparison of training loss and GEdit-Bench scores for the baseline method without canvas tokens and MetaCanvas.</b> Both models are fine-tuned on the same training dataset.
 						</figcaption>
 					</figure>
 					
@@ -946,14 +1451,13 @@
 
 
 					<hr>
-					<br>
+					<br><br>
 					<h3 class="title is-4">Results on Video Generation Task</h3>
 					
 					<div class="content has-text-justified">
 						<p>
 							In <a href="#table:results_t2v_i2v">Table&nbsp;4</a>, we compare videos generated by
 							<span class="method">MetaCanvas</span> 
-							(see <a href="#subsec:exp_setup_training">Section&nbsp;Y</a>)
 							with open-source models, including
 							CogVideoX-5B (<a href="https://arxiv.org/abs/2408.06072" target="_blank">Yang et&nbsp;al.,&nbsp;2024</a>),
 							HunyuanVideo (<a href="https://arxiv.org/abs/2412.03603" target="_blank">Kong et&nbsp;al.,&nbsp;2024</a>),
@@ -967,7 +1471,7 @@
 					
 					<!-- Table 1 with caption and ID for referencing -->
 					<figure id="table:results_imgedit_short">
-						<img src="./static/images/table4.png" alt="Quantitative comparison with models on ImgEdit benchmark" width="65%">
+						<img src="./static/images/table4.png" alt="Quantitative comparison with models on ImgEdit benchmark" width="50%">
 						<figcaption>
 							<b>Table 4: Quantitative comparison results on VBench-I2V (<a href="https://arxiv.org/abs/2411.13503" target="_blank">Huang et al., 2024b</a>).</b> Best numbers are bolded, and the second best are underlined.
 						</figcaption>
@@ -978,7 +1482,7 @@
 
 
 					<hr>
-					<br>
+					<br><br>
 					<h3 class="title is-4">Results on Video Editing Task</h3>
 					
 					<div class="content has-text-justified">
@@ -988,7 +1492,7 @@
 							Ditto (<a href="https://arxiv.org/abs/2510.15742" target="_blank">Bai et&nbsp;al.,&nbsp;2025</a>),
 							and Lucy-Edit-Dev (<a href="https://huggingface.co/decart-ai/Lucy-Edit-Dev" target="_blank">Decart et&nbsp;al.,&nbsp;2025</a>),
 							as well as a control setup of our method that excludes canvas tokens.
-							As shown in <a href="#table:results_video_editing">Table&nbsp;X</a>,
+							As shown in <a href="#table:results_video_editing">Table&nbsp;5</a>,
 							<span class="method">MetaCanvas</span> achieves comparable video quality scores, as measured
 							by VBench (<a href="https://arxiv.org/abs/2311.17982" target="_blank">Huang et&nbsp;al.,&nbsp;2023</a>;
 							<a href="https://arxiv.org/abs/2411.13503" target="_blank">Huang et&nbsp;al.,&nbsp;2024</a>)
@@ -1006,9 +1510,9 @@
 					</div>
 					  
 					
-					<!-- Table 2 with caption and ID for referencing -->
-					<figure id="table:results_gedit_short">
-						<img src="./static/images/table5.png" alt="Quantitative comparison results on GEdit-EN-full benchmark" width="99%">
+					<!-- Table 5 with caption and ID for referencing -->
+					<figure id="table:results_video_editing">
+						<img src="./static/images/table5.png" alt="Quantitative comparison results on GEdit-EN-full benchmark" width="85%">
 						<figcaption>
 							<b>Table 5: Quantitative comparison on video editing task.</b> Best numbers are bolded, and the second best are underlined.
 						</figcaption>
@@ -1023,12 +1527,12 @@
 
 
 					<hr>
-					<br>
+					<br><br>
 					<h3 class="title is-4">Results on In-Context Video Generation Task</h3>
 					
 					<div class="content has-text-justified">
 						<p>
-							In <a href="#table:results_omnicontext_video">Table&nbsp;15</a>, we compare
+							In <a href="#table:results_omnicontext_video">Table&nbsp;6</a>, we compare
 							<span class="method">MetaCanvas</span> with Wan-VACE
 							(<a href="https://arxiv.org/abs/2503.07598" target="_blank">Jiang et&nbsp;al.,&nbsp;2025</a>)
 							1.3B/14B on video generation from reference images.
@@ -1039,10 +1543,10 @@
 					</div>
 					
 					<!-- Table 1 with caption and ID for referencing -->
-					<figure id="table:results_imgedit_short">
-						<img src="./static/images/table15.png" alt="Quantitative comparison with models on ImgEdit benchmark" width="99%">
+					<figure id="table:results_omnicontext_video">
+						<img src="./static/images/table15.png" alt="Quantitative comparison with models on ImgEdit benchmark" width="85%">
 						<figcaption>
-							<b>Table 15 Quantitative comparison results on our OmniContext-Video benchmark for in-context video generation from reference images.
+							<b>Table 6 Quantitative comparison results on our OmniContext-Video benchmark for in-context video generation from reference images.
 						</figcaption>
 					</figure>
 					<!-- <br> -->

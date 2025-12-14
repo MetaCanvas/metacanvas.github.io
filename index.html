@@ -259,9 +259,8 @@
 											<td></td>
 
 											<td>
-												<!-- <img style="position: relative;top:50%;transform: translateY(-50%);"
-													width="50px" src="./static/images/plus.png"> -->
-												<img width="50px" src="./static/images/plus.png">
+												<img style="position: relative;top:50%;transform: translateY(-50%);"
+													width="50px" src="./static/images/plus.png">
 											</td>
 
 											<td style="text-align: left;">
@@ -271,9 +270,8 @@
 											</td>
 
 											<td>
-												<!-- <img style="position: relative;top:50%;transform: translateY(-50%);"
-													width="50px" src="./static/images/arrow_icon.jpg"> -->
-												<img width="50px" src="./static/images/arrow_icon.jpg">
+												<img style="position: relative;top:50%;transform: translateY(-50%);"
+													width="50px" src="./static/images/arrow_icon.jpg">
 											</td>
 
 											<td>
@@ -1654,60 +1652,38 @@
 	  const inputVideo = container.querySelector('.video-compare-input');
 	  const editedVideo = container.querySelector('.video-compare-edited');
 	
-	  function syncPlay() {
-		if (inputVideo.paused) editedVideo.pause();
-		else {
-		  editedVideo.currentTime = inputVideo.currentTime;
-		  editedVideo.play();
-		}
-	  }
+	  // Sync play/pause
+	  inputVideo.addEventListener('play', () => editedVideo.play());
+	  inputVideo.addEventListener('pause', () => editedVideo.pause());
 	
-	  function syncPause() {
-		editedVideo.pause();
-	  }
-	
-	  function syncSeek() {
+	  // Sync seeking
+	  inputVideo.addEventListener('seeked', () => {
 		editedVideo.currentTime = inputVideo.currentTime;
-	  }
+	  });
 	
-	  function syncLoop() {
-		inputVideo.currentTime = 0;
-		editedVideo.currentTime = 0;
-		inputVideo.play();
-		editedVideo.play();
-	  }
-	
-	  inputVideo.addEventListener('play', syncPlay);
-	  inputVideo.addEventListener('pause', syncPause);
-	  inputVideo.addEventListener('seeked', syncSeek);
+	  // Sync time updates (drift correction)
 	  inputVideo.addEventListener('timeupdate', () => {
-		// Keep videos in sync (small drift correction)
 		if (Math.abs(inputVideo.currentTime - editedVideo.currentTime) > 0.05) {
 		  editedVideo.currentTime = inputVideo.currentTime;
 		}
 	  });
-	  inputVideo.addEventListener('ended', syncLoop);
 	
-	  // Optionally, start both videos together when loaded
+	  // Sync on load
 	  inputVideo.addEventListener('loadeddata', () => {
 		editedVideo.currentTime = inputVideo.currentTime;
 	  });
 	  editedVideo.addEventListener('loadeddata', () => {
 		inputVideo.currentTime = editedVideo.currentTime;
 	  });
+	
+	  // Optional: loop both videos together
+	  inputVideo.addEventListener('ended', () => {
+		inputVideo.currentTime = 0;
+		editedVideo.currentTime = 0;
+		inputVideo.play();
+		editedVideo.play();
+	  });
 	});
-</script>
-<!-- Existing scripts and styles -->
-<style>
-	code {
-		display: block;
-	}
-</style>
-<script>
-		var code = document.querySelector('pre code');
-		code.innerHTML = code.textContent.replace(/(\w)/, '<span>$1');
-		var left = code.querySelector('span').getClientRects()[0].left;
-		code.style.marginLeft = (-left + code.getClientRects()[0].left) + 'px';  
 </script>
 	
 
